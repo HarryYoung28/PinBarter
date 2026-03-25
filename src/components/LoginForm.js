@@ -41,7 +41,7 @@ export default function LoginForm() {
         
         <h1 className="text-2xl font-bold mb-1">
             <span className="text-gray-900">Pin</span>
-            <span className="text-orange-600">Barter</span>
+            <span className="text-disney-dark-blue">Barter</span>
         </h1>
         <p className="text-sm text-gray-500 mb-6">Sign in to your account</p>
 
@@ -51,6 +51,7 @@ export default function LoginForm() {
           <input
             type="text"
             id="Username"
+            data-testid="UsernameTest"
             placeholder="your username"
             value={username}
             onChange={(event) => setUsername(event.target.value)}
