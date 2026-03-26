@@ -1,15 +1,20 @@
 'use client'
 
 // import the hook
-import { useState } from "react"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
 
   // hooks
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [usernameError, setUsernameError] = useState("")
-  const [passwordError, setPasswordError] = useState("")
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [usernameError, setUsernameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [isErrorWindowOpen, setIsErrorWindowOpen] = useState(false);
+
+  // router for pushing
+  const router = useRouter()
 
   // functions
   function handleSubmit() {
@@ -21,22 +26,31 @@ export default function LoginForm() {
     } else {
       setUsernameError("")
     }
+
     if (!password) {
       setPasswordError("Password is required")
       valid = false
     } else {
       setPasswordError("")
     }
-
+  
     if (valid) {
-      console.log("Submitted successfully", username, password)
+      if (username !== "admin" || password !== "admin123") {
+        setIsErrorWindowOpen(true)
+      } else {
+        setIsErrorWindowOpen(false)
+        router.push("/home")
+      }
     }
   }
 
+  function closeErrorWindow() {
+    setIsErrorWindowOpen(false);
+  }
 
   // return single tag to export component
   return (
-    <div className="min-h-screen flex items-center justify-center bg-orange-300">
+    <div className="min-h-screen flex items-center justify-center bg-disney-light-blue">
       <div className="bg-white p-8 rounded-lg border border-gray-200 w-full max-w-sm">
         
         <h1 className="text-2xl font-bold mb-1">
@@ -78,8 +92,8 @@ export default function LoginForm() {
 
         <button 
         onClick={handleSubmit}
-        className="w-full bg-orange-600 text-white py-2 rounded-md text-sm font-medium 
-        hover:bg-orange-700">
+        className="w-full bg-slate-600 text-white py-2 rounded-md text-sm font-medium 
+        hover:bg-slate-800">
           Sign in
         </button>
 
@@ -89,6 +103,36 @@ export default function LoginForm() {
         </p>
 
       </div>
+
+      {/* Modal for update/ecdit warden form */}
+      {isErrorWindowOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="
+          relative
+          z-10
+          bg-white
+          p-6
+          rounded-lg
+          shadow-lg
+          w-full
+          max-w-lg
+          text-center
+        ">
+          <h2 className="text-xl font-bold mb-4 text-gray-600">
+            Error: Invalid Credentials
+          </h2>
+          <p className="mb-4 text-sm opacity-80 text-gray-600">
+            Incorrect username or password submitted.
+          </p>
+          <button
+          type="button"
+          onClick={closeErrorWindow}
+          className="bg-slate-600 hover:bg-slate-800 p-1 rounded shadow text-white">
+            Close
+          </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

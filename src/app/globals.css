@@ -16,6 +16,9 @@
   --color-disney-light-blue: #bff5fd;
   --color-disney-dark-blue: #113ccf;
 
+  /* bff5fd cute blue for backgrounds
+  113ccf darker blue for other elements */
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,6 +33,3 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
-
-/* bff5fd cute blue for backgrounds
-113ccf darker blue for other elements */
