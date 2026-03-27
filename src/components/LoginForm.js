@@ -11,10 +11,10 @@ export default function LoginForm() {
   const [password, setPassword] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [isErrorWindowOpen, setIsErrorWindowOpen] = useState(false);
+  const [credentialsError, setCredentialsError] = useState("");
 
   // router for pushing
-  const router = useRouter()
+  const router = useRouter();
 
   // functions
   function handleSubmit() {
@@ -22,6 +22,7 @@ export default function LoginForm() {
 
     if (!username) {
       setUsernameError("Username is required")
+      setCredentialsError("")
       valid = false
     } else {
       setUsernameError("")
@@ -29,6 +30,7 @@ export default function LoginForm() {
 
     if (!password) {
       setPasswordError("Password is required")
+      setCredentialsError("")
       valid = false
     } else {
       setPasswordError("")
@@ -36,16 +38,12 @@ export default function LoginForm() {
   
     if (valid) {
       if (username !== "admin" || password !== "admin123") {
-        setIsErrorWindowOpen(true)
+        setCredentialsError("Incorrect username or password")
       } else {
-        setIsErrorWindowOpen(false)
+        setCredentialsError("")
         router.push("/home")
       }
     }
-  }
-
-  function closeErrorWindow() {
-    setIsErrorWindowOpen(false);
   }
 
   // return single tag to export component
@@ -65,12 +63,15 @@ export default function LoginForm() {
           <input
             type="text"
             id="Username"
-            data-testid="UsernameTest"
-            placeholder="your username"
+            data-testid="username"
+            placeholder="username"
             value={username}
             onChange={(event) => setUsername(event.target.value)}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm        
-            focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-500"
+            className={`w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 
+              ${usernameError 
+                ? "border-red-500 focus:ring-red-500" 
+                : "border-gray-300 focus:ring-blue-500"
+              } text-gray-500`}
           />
           {/* this means only if the lefthand is true, format the right  */}
           {usernameError && <p className="text-red-500 text-xs mt-1">{usernameError}</p>}
@@ -81,18 +82,25 @@ export default function LoginForm() {
           <input
             type="password" 
             id="Password"
-            placeholder="your password"
+            data-testid="password"
+            placeholder="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none 
-            focus:ring-2 focus:ring-blue-500 text-gray-500"
+            className={`w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 
+              ${passwordError 
+                ? "border-red-500 focus:ring-red-500" 
+                : "border-gray-300 focus:ring-blue-500"
+              } text-gray-500`}
           />
           {passwordError && <p className="text-red-500 text-xs mt-1">{passwordError}</p>}
         </div>
-
+        {credentialsError && <p data-testid="credentials-error" className="text-red-500 text-xs mb-2">{credentialsError}</p>}
         <button 
+        data-testid="sign-in-button"
+        type="button"
         onClick={handleSubmit}
-        className="w-full bg-slate-600 text-white py-2 rounded-md text-sm font-medium 
+        
+        className="w-full cursor-pointer bg-slate-600 text-white py-2 rounded-md text-sm font-medium 
         hover:bg-slate-800">
           Sign in
         </button>
@@ -103,36 +111,6 @@ export default function LoginForm() {
         </p>
 
       </div>
-
-      {/* Modal for update/ecdit warden form */}
-      {isErrorWindowOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="
-          relative
-          z-10
-          bg-white
-          p-6
-          rounded-lg
-          shadow-lg
-          w-full
-          max-w-lg
-          text-center
-        ">
-          <h2 className="text-xl font-bold mb-4 text-gray-600">
-            Error: Invalid Credentials
-          </h2>
-          <p className="mb-4 text-sm opacity-80 text-gray-600">
-            Incorrect username or password submitted.
-          </p>
-          <button
-          type="button"
-          onClick={closeErrorWindow}
-          className="bg-slate-600 hover:bg-slate-800 p-1 rounded shadow text-white">
-            Close
-          </button>
-          </div>
-        </div>
-      )}
     </div>
   )
 }
