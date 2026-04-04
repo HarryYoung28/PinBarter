@@ -3,6 +3,7 @@
 // import the hook
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function LoginForm() {
 
@@ -17,7 +18,7 @@ export default function LoginForm() {
   const router = useRouter();
 
   // functions
-  function handleSubmit() {
+  async function handleSubmit() {
     let valid = true
 
     if (!username) {
@@ -37,8 +38,14 @@ export default function LoginForm() {
     }
   
     if (valid) {
-      if (username !== "admin" || password !== "admin123") {
-        setCredentialsError("Incorrect username or password")
+      const result = await signIn("credentials", {
+        username,
+        password,
+        redirect: false,
+      })
+
+      if (result?.error) {
+        setCredentialsError("Incorrect username or password.")
       } else {
         setCredentialsError("")
         router.push("/home")

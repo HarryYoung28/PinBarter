@@ -43,3 +43,4 @@ next-env.d.ts
 # remove jest.config.js from files
 jest.config.js
 .swc
+/src/generated/prisma

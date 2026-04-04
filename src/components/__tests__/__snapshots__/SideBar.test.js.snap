@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`AC-8 SideBar.js snapshot testing matches snapshot 1`] = `
+<div>
+  <button
+    class=" fixed  top-4  left-4  z-50  md:hidden  bg-disney-light-blue  text-disney-dark-blue  p-2  rounded-md"
+    data-testid="burger-menu-button"
+  >
+    <svg
+      class="size-6"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  </button>
+  <div
+    class="
+            fixed 
+            md:relative 
+            h-screen 
+            w-64 
+            transition-transform 
+            duration-300
+            bg-disney-light-blue
+            flex
+            flex-col
+            -translate-x-full
+            md:translate-x-0
+            "
+    data-testid="sidebar-div"
+  >
+    <div
+      class="p-6 flex items-center justify-between"
+    >
+      <h1
+        class="text-2xl font-bold"
+      >
+        <span
+          class="text-gray-900"
+        >
+          Pin
+        </span>
+        <span
+          class="text-disney-dark-blue"
+        >
+          Barter
+        </span>
+      </h1>
+      <button
+        class="md:hidden text-disney-dark-blue"
+        data-testid="x-close-button"
+      >
+        <svg
+          class="size-6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M6 18 18 6M6 6l12 12"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      class="flex-1 flex flex-col"
+    >
+      <a
+        class="block px-6 py-3 text-gray-700 hover:bg-white hover:text-disney-dark-blue"
+        data-testid="home"
+        href="/home"
+      >
+        Home
+      </a>
+      <a
+        class="block px-6 py-3 text-gray-700 hover:bg-white hover:text-disney-dark-blue"
+        data-testid="collection"
+        href="/collection"
+      >
+        My Pins
+      </a>
+      <a
+        class="block px-6 py-3 text-gray-700 hover:bg-white hover:text-disney-dark-blue"
+        data-testid="pins"
+        href="/pins"
+      >
+        All Pins
+      </a>
+      <a
+        class="block px-6 py-3 text-disney-dark-blue bg-white font-semibold"
+        data-testid="profile"
+        href="/profile"
+      >
+        My Profile
+      </a>
+      <a
+        class="block px-6 py-3 text-gray-700 hover:bg-white hover:text-disney-dark-blue"
+        data-testid="trades"
+        href="/trades"
+      >
+        My Trades
+      </a>
+      <a
+        class="block px-6 py-3 text-gray-700 hover:bg-white hover:text-disney-dark-blue"
+        data-testid="wishlist"
+        href="/wishlist"
+      >
+        My Wishlist
+      </a>
+    </div>
+    <div
+      class="items-center border-gray-200 flex flex-col pb-6"
+    >
+      <div
+        class="flex items-center gap-3 mb-4"
+      >
+        <div
+          class=" w-8  h-8  rounded-full  bg-disney-dark-blue  text-white  flex  items-center  justify-center  text-sm  font-bold"
+        >
+          ?
+        </div>
+        <span
+          class="text-sm text-gray-700"
+        >
+          Username
+        </span>
+      </div>
+      <div>
+        <button
+          class="text-sm text-gray-600 hover:text-red-500"
+        >
+          Sign Out
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import LoginForm from '../LoginForm'
 import '@testing-library/jest-dom'
 
@@ -6,6 +6,12 @@ import '@testing-library/jest-dom'
 const mockPush = jest.fn()
 jest.mock("next/navigation", () => ({
   useRouter: () => ({ push: mockPush })
+}))
+
+// added post db integration (ticket 4)
+const mockSignIn = jest.fn()
+jest.mock("next-auth/react", () => ({
+    signIn: (...args) => mockSignIn(...args)
 }))
 
 // Render before each test element
@@ -56,21 +62,47 @@ describe("AC-5 LoginForm snapshot testing", () => {
 //   })
 
 // Login form redirect tests (successful login without db connection up and running)
-describe("AC-4 LoginForm redirect", () => {
-    test("redirects to /home when correct credentials are submitted", () => {
+// describe("AC-4 LoginForm redirect", () => {
+//     test("redirects to /home when correct credentials are submitted", () => {
+//         fireEvent.change(screen.getByLabelText("Username"), { target: { value: "admin" } })
+//         fireEvent.change(screen.getByLabelText("Password"), { target: { value: "admin123" } })
+//         fireEvent.click(screen.getByRole("button", { name: /sign in/i }))
+//         expect(mockPush).toHaveBeenCalledWith("/home")
+//     })
+//   })
+
+// describe("AC-6 LoginForm inline credentials error", () => {
+//     test("shows inline error when invalid credentials are submitted", () => {
+//         fireEvent.change(screen.getByTestId("username"), { target: { value: "wronguser" } })
+//         fireEvent.change(screen.getByTestId("password"), { target: { value: "wrongpass" } })
+//         fireEvent.click(screen.getByTestId("sign-in-button"))
+//         expect(screen.getByTestId("credentials-error")).toBeInTheDocument()
+//     })
+// })
+ 
+
+// UPDATED IN TICKET 4, for TICKET AC-2
+describe("AC-4 LoginForm calls signIn with correct credentials", () => {
+    test("calls signIn and redirects to /home on success", async () => {
+        mockSignIn.mockResolvedValueOnce({ error: null })
         fireEvent.change(screen.getByLabelText("Username"), { target: { value: "admin" } })
         fireEvent.change(screen.getByLabelText("Password"), { target: { value: "admin123" } })
         fireEvent.click(screen.getByRole("button", { name: /sign in/i }))
+        await new Promise(resolve => setTimeout(resolve, 0))
+        expect(mockSignIn).toHaveBeenCalled()
         expect(mockPush).toHaveBeenCalledWith("/home")
     })
-  })
+})
 
-describe("AC-6 LoginForm inline credentials error", () => {
-    test("shows inline error when invalid credentials are submitted", () => {
+// UPDATED IN TICKET 4 for TICKET AC-3
+  describe("AC-6 LoginForm inline credentials error", () => {
+    test("shows inline error when invalid credentials are submitted", async () => {
+        mockSignIn.mockResolvedValueOnce({ error: "CredentialsSignin" })
         fireEvent.change(screen.getByTestId("username"), { target: { value: "wronguser" } })
         fireEvent.change(screen.getByTestId("password"), { target: { value: "wrongpass" } })
         fireEvent.click(screen.getByTestId("sign-in-button"))
-        expect(screen.getByTestId("credentials-error")).toBeInTheDocument()
+        await waitFor(() => {
+            expect(screen.getByTestId("credentials-error")).toBeInTheDocument()
+        })
     })
 })
- 

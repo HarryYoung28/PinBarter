@@ -6,7 +6,7 @@ import '@testing-library/jest-dom'
 const mockPush = jest.fn()
 jest.mock("next/navigation", () => ({
   useRouter: () => ({ push: mockPush }),
-  usePathname: () => "/home"
+  usePathname: () => "/profile"
 }))
 
 // render the sidebar before each test
@@ -62,9 +62,38 @@ describe("AC-4 Burger menu opens sidebar", () => {
 })
 
 // AC 5 - Mobile Sidebar closes when X button pressed
+describe("AC-5 Burger menu closes when X is clicked", () => {
+    test("sidebar closes when X button is clicked", () => {
+        fireEvent.click(screen.getByTestId("burger-menu-button"))
+        fireEvent.click(screen.getByTestId("x-close-button"))
+        expect(screen.queryByTestId("sidebar-div")).toHaveClass("-translate-x-full")
+    })
+})
 
-// AC 6 - Mobile Sidebar closing when redirecting to new link
+// AC 6 - Mobile Sidebar closes when navigation link is selected
+describe("AC-6 Mobile Sidebar navigation link is selected", () => {
+    test("sidebar closes when X button is clicked", () => {
+        fireEvent.click(screen.getByTestId("burger-menu-button"))
+        fireEvent.click(screen.getByTestId("profile"))
+        expect(screen.queryByTestId("sidebar-div")).toHaveClass("-translate-x-full")
+    })
+})
 
 // AC 7 - Highlighting on current page on navigation menu
+describe("AC-7 Highlighting on current page link", () => {
+    test("profile link is highlighted as it is the current page", () => {
+        // text-disney-dark-blue is only on the Links that have been highlighted
+        expect(screen.getByTestId("profile")).toHaveClass("text-disney-dark-blue")
+    })
+    test("home link is not highlighted as it is not the current page", () => {
+        expect(screen.getByTestId("home")).not.toHaveClass("text-disney-dark-blue")
+    })
+})
 
-// AC 8 - Snapshot Testing
+// // AC 8 - Snapshot Testing
+describe("AC-8 SideBar.js snapshot testing", () => {
+    it("matches snapshot", () => {
+        const { container } = render(<SideBar />)
+        expect(container).toMatchSnapshot()
+    })
+})

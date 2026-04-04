@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  email        String   @unique
+  passwordHash String
+  role         String   @default("user")
+  createdAt    DateTime @default(now())
+
+  collection   Collection[]
+  wishlist     Wishlist[]
+  tradesGiven  Trade[]      @relation("Sender")
+  tradesGotten Trade[]      @relation("Receiver")
+}
+
+model Pin {
+  id          String   @id @default(cuid())
+  name        String
+  series      String?
+  description String?
+  imageUrl    String?
+  isApproved  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  collection  Collection[]
+  wishlist    Wishlist[]
+  tradeItems  TradeItem[]
+}
+
+model Collection {
+  id        String   @id @default(cuid())
+  userId    String
+  pinId     String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  pin       Pin      @relation(fields: [pinId], references: [id])
+}
+
+model Wishlist {
+  id        String   @id @default(cuid())
+  userId    String
+  pinId     String
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  pin       Pin      @relation(fields: [pinId], references: [id])
+}
+
+model Trade {
+  id         String      @id @default(cuid())
+  senderId   String
+  receiverId String
+  status     String      @default("pending")
+  createdAt  DateTime    @default(now())
+
+  sender     User        @relation("Sender", fields: [senderId], references: [id])
+  receiver   User        @relation("Receiver", fields: [receiverId], references: [id])
+  items      TradeItem[]
+}
+
+model TradeItem {
+  id        String @id @default(cuid())
+  tradeId   String
+  pinId     String
+  direction String
+
+  trade     Trade  @relation(fields: [tradeId], references: [id])
+  pin       Pin    @relation(fields: [pinId], references: [id])
+}

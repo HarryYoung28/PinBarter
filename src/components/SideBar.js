@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react"
 
 export default function SideBar() {
 
@@ -12,9 +13,14 @@ export default function SideBar() {
     // get current pathname
     const pathname = usePathname()
     // variable to hold link class (preventing repeated code)
+    // using block enables the whole link to become a clickable block 'button' style
     const linkTagClassNameVariable = "block px-6 py-3 text-gray-700 hover:bg-white hover:text-disney-dark-blue"
     // variable to hold user feedback link class (highlights what page the user currently is at)
     const userCurrentLinkClassNameVariable = "block px-6 py-3 text-disney-dark-blue bg-white font-semibold"
+
+    function closeSideBar() {
+        setIsOpen(false);
+    }
 
 
     
@@ -43,7 +49,8 @@ export default function SideBar() {
             </button>
         )}
             {/* SIDE BAR DIV */}
-            <div className={`
+            <div data-testid="sidebar-div"
+            className={`
             fixed 
             md:relative 
             h-screen 
@@ -66,7 +73,7 @@ export default function SideBar() {
                     </h1>
                     {/* Close X button (mobile only) SVG from https://heroicons.com  */}
                     <button
-                    onClick={() => setIsOpen(false)}
+                    onClick={closeSideBar}
                     data-testid="x-close-button"
                     className="md:hidden text-disney-dark-blue">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -76,28 +83,27 @@ export default function SideBar() {
                 </div>
                 {/* div for LINKS to pages */}
                 <div className="flex-1 flex flex-col">
-                    {/* using block enables the whole link to become a clickable block 'button' style */}
-                    <Link data-testid="home" href="/home" 
+                    <Link data-testid="home" href="/home" onClick={closeSideBar}
                     className={pathname === "/home" ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
                         Home
                     </Link>
-                    <Link data-testid="collection" href="/collection" 
+                    <Link data-testid="collection" href="/collection" onClick={closeSideBar}
                     className={pathname === "/collection" ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
                         My Pins
                     </Link>
-                    <Link data-testid="pins" href="/pins" 
+                    <Link data-testid="pins" href="/pins" onClick={closeSideBar}
                     className={pathname === "/pins" ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
                         All Pins
                     </Link>
-                    <Link data-testid="profile" href="/profile" 
+                    <Link data-testid="profile" href="/profile" onClick={closeSideBar}
                     className={pathname === "/profile" ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
                         My Profile
                     </Link>
-                    <Link data-testid="trades" href="/trades" 
+                    <Link data-testid="trades" href="/trades" onClick={closeSideBar}
                     className={pathname === "/trades" ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
                         My Trades
                     </Link>
-                    <Link data-testid="wishlist" href="/wishlist" 
+                    <Link data-testid="wishlist" href="/wishlist" onClick={closeSideBar}
                     className={pathname === "/wishlist" ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
                         My Wishlist
                     </Link>
@@ -122,9 +128,10 @@ export default function SideBar() {
                         {/* replace with username of signed in user */}
                         <span className="text-sm text-gray-700">Username</span>
                     </div>
-                    {/* Sign Out */}
+                    {/* Sign Out -- using signOut from NextAuth destroys the JWT, redirects to Logino */}
                     <div>
-                        <button className="text-sm text-gray-600 hover:text-red-500">
+                        <button className="text-sm text-gray-600 hover:text-red-500"
+                        onClick={() => signOut({ callbackUrl: '/login' })}>
                             Sign Out
                         </button>
                     </div>
