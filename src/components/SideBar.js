@@ -26,28 +26,21 @@ export default function SideBar() {
     
     return(
         <>
-            {/* BURGER BUTTON */}
-            {/* md is a media breakpoint that is dynamic and uses 768px  */}
-            {/* conditional render if menu is open or not */}
-            {!isOpen && (<button 
-            onClick={() => setIsOpen(true)}
-            data-testid="burger-menu-button"  
-            className="
-            fixed 
-            top-4 
-            left-4 
-            z-50 
-            md:hidden 
-            bg-disney-light-blue 
-            text-disney-dark-blue 
-            p-2 
-            rounded-md">
-                {/* (SVG from https://heroicons.com, by TailwindCSS devs, mobile use only) */}
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                </svg>
-            </button>
-        )}
+            {/* MOBILE TOP NAVBAR */}
+            <div className="md:hidden fixed top-0 left-0 right-0 z-40 bg-disney-light-blue px-4 py-3 flex items-center justify-between">
+                <h1 className="text-xl font-bold">
+                    <span className="text-gray-900">Pin</span>
+                    <span className="text-disney-dark-blue">Barter</span>
+                </h1>
+                <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    data-testid="burger-menu-button"
+                    className="text-disney-dark-blue p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </button>
+            </div>
             {/* SIDE BAR DIV */}
             <div data-testid="sidebar-div"
             className={`
@@ -60,6 +53,7 @@ export default function SideBar() {
             bg-disney-light-blue
             flex
             flex-col
+            overflow-y-auto
             ${isOpen ? "translate-x-0" : "-translate-x-full"}
             md:translate-x-0
             `}>
@@ -71,15 +65,6 @@ export default function SideBar() {
                         <span className="text-gray-900">Pin</span>
                         <span className="text-disney-dark-blue">Barter</span>
                     </h1>
-                    {/* Close X button (mobile only) SVG from https://heroicons.com  */}
-                    <button
-                    onClick={closeSideBar}
-                    data-testid="x-close-button"
-                    className="md:hidden text-disney-dark-blue">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
-                        </svg>
-                    </button>
                 </div>
                 {/* div for LINKS to pages */}
                 <div className="flex-1 flex flex-col">
