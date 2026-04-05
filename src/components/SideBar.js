@@ -27,7 +27,7 @@ export default function SideBar() {
     return(
         <>
             {/* MOBILE TOP NAVBAR */}
-            <div className="md:hidden fixed top-0 left-0 right-0 z-40 bg-disney-light-blue px-4 py-3 flex items-center justify-between">
+            <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-disney-light-blue px-4 py-3 flex items-center justify-between">
                 <h1 className="text-xl font-bold">
                     <span className="text-gray-900">Pin</span>
                     <span className="text-disney-dark-blue">Barter</span>
@@ -44,7 +44,7 @@ export default function SideBar() {
             {/* MOBILE OVERLAY (dims background) */}
             {isOpen && (
                 <div
-                className="md:hidden fixed inset-0 z-40 bg-gray-600 bg-opacity-20"
+                className="md:hidden fixed inset-0 z-40 bg-gray-600/20"
                 onClick={closeSideBar}>
                 </div>
             )}
