@@ -44,7 +44,7 @@ export default function SideBar() {
             {/* MOBILE OVERLAY (dims background) */}
             {isOpen && (
                 <div
-                className="md:hidden fixed inset-0 z-40 bg-gray-600/20"
+                className="md:hidden fixed inset-0 z-40 bg-gray-600/60"
                 onClick={closeSideBar}>
                 </div>
             )}
