@@ -60,7 +60,7 @@ export default function SideBar() {
                 md:translate-x-0
             `}>
                 {/* div for TOP of sidebar for LOGO */}
-                <div className="p-6 flex items-center justify-between">
+                <div className="hidden md:flex p-6 flex items-center justify-between">
                     {/* text-2xl ensures WCAG compliance with contrast at 6.9:1 for disney-dark-blue on 
                     disney-light-blue, with bold font as it is the Logo */}
                     <h1 className="text-2xl font-bold">
