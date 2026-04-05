@@ -44,18 +44,19 @@ export default function SideBar() {
             {/* SIDE BAR DIV */}
             <div data-testid="sidebar-div"
             className={`
-            fixed 
-            md:relative 
-            min-h-screen 
-            w-64 
-            transition-transform 
-            duration-300
-            bg-disney-light-blue
-            flex
-            flex-col
-            overflow-y-auto
-            ${isOpen ? "translate-x-0" : "-translate-x-full"}
-            md:translate-x-0
+                fixed
+                top-0
+                bottom-0
+                md:relative
+                w-64
+                transition-transform
+                duration-300
+                bg-disney-light-blue
+                flex
+                flex-col
+                overflow-y-auto
+                ${isOpen ? "translate-x-0" : "-translate-x-full"}
+                md:translate-x-0
             `}>
                 {/* div for TOP of sidebar for LOGO */}
                 <div className="p-6 flex items-center justify-between">
