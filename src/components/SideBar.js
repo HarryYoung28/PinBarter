@@ -41,6 +41,13 @@ export default function SideBar() {
                     </svg>
                 </button>
             </div>
+            {/* MOBILE OVERLAY (dims background) */}
+            {isOpen && (
+                <div
+                className="md:hidden fixed inset-0 z-40 bg-black bg-opacity-50"
+                onClick={closeSideBar}>
+                </div>
+            )}
             {/* SIDE BAR DIV */}
             <div data-testid="sidebar-div"
             className={`
@@ -49,6 +56,7 @@ export default function SideBar() {
                 bottom-0
                 md:relative
                 md:top-0
+                z-50
                 w-64
                 transition-transform
                 duration-300
