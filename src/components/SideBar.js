@@ -45,9 +45,10 @@ export default function SideBar() {
             <div data-testid="sidebar-div"
             className={`
                 fixed
-                top-0
+                top-14
                 bottom-0
                 md:relative
+                md:top-0
                 w-64
                 transition-transform
                 duration-300
