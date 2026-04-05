@@ -53,7 +53,7 @@ export default function SideBar() {
             className={`
             fixed 
             md:relative 
-            h-screen 
+            min-h-screen 
             w-64 
             transition-transform 
             duration-300
@@ -128,7 +128,7 @@ export default function SideBar() {
                         {/* replace with username of signed in user */}
                         <span className="text-sm text-gray-700">Username</span>
                     </div>
-                    {/* Sign Out -- using signOut from NextAuth destroys the JWT, redirects to Logino */}
+                    {/* Sign Out -- using signOut from NextAuth destroys the JWT, redirects to Login */}
                     <div>
                         <button className="text-sm text-gray-600 hover:text-red-500"
                         onClick={() => signOut({ callbackUrl: '/login' })}>

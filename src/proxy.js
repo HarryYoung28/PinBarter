@@ -1,4 +1,4 @@
-export { default } from "next-auth/middleware"
+export { default as proxy } from "next-auth/middleware"
 
 // if not authed as signed in in these routes, redirect to sign in (/login)
 export const config = {
