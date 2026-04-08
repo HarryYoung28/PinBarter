@@ -16,6 +16,9 @@ export default function SearchBar({ value, onChange }){
             focus:ring-disney-dark-blue
             bg-white
             text-gray-900
+            dark:bg-neutral-800
+            dark:text-gray-100
+            dark:focus:ring-disney-light-blue
             "></input>
     )
 }

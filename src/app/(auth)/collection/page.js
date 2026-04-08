@@ -27,16 +27,16 @@ export default function Collection() {
 
     return (
         <div className="p-6">
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">My Pins</h1>
-            <p className="text-sm text-gray-500 mb-6">Your personal pin collection.</p>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">My Pins</h1>
+            <p className="text-sm text-gray-500 dark:text-gray-300 mb-6">Your personal pin collection.</p>
 
             {loading && (
-                <p className="text-sm text-gray-500 text-center">Loading your collection...</p>
+                <p className="text-sm text-gray-500 dark:text-gray-300 text-center">Loading your collection...</p>
             )}
 
             {!loading && pins.length === 0 && (
                 <div className="text-center mt-12">
-                    <p className="text-sm text-gray-500 mb-4">You haven't added any pins yet!</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-300 mb-4">You haven't added any pins yet!</p>
                     <button
                         onClick={() => router.push('/pins')}
                         className="
@@ -48,9 +48,7 @@ export default function Collection() {
                         hover:text-white 
                         rounded-md 
                         hover:bg-disney-dark-blue
-                        dark:text-white
-                        dark:bg-disney-dark-blue
-                        dark:hover:bg-disney-light-blue
+                        dark:hover:bg-white
                         dark:hover:text-disney-dark-blue">
                         Browse Pins
                     </button>
@@ -75,6 +73,8 @@ export default function Collection() {
                                 rounded-md 
                                 hover:bg-disney-dark-blue 
                                 hover:text-white 
+                                dark:hover:bg-white
+                                dark:hover:text-disney-dark-blue
                                 disabled:opacity-50 
                                 disabled:hover:bg-disney-light-blue 
                                 disabled:hover:text-disney-dark-blue">
@@ -94,6 +94,8 @@ export default function Collection() {
                                 hover:bg-disney-dark-blue 
                                 hover:text-white 
                                 disabled:opacity-50 
+                                dark:hover:bg-white
+                                dark:hover:text-disney-dark-blue
                                 disabled:hover:bg-disney-light-blue 
                                 disabled:hover:text-disney-dark-blue">
                                 Next Page
@@ -112,6 +114,8 @@ export default function Collection() {
                             text-disney-dark-blue 
                             rounded-md 
                             hover:bg-disney-dark-blue 
+                            dark:hover:bg-white
+                            dark:hover:text-disney-dark-blue
                             hover:text-white">
                             Browse More Pins
                         </button>

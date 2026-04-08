@@ -59,15 +59,17 @@ export default function PinfoPage({ params }) {
         <div className="p-6 max-w-2xl">
             <button
             onClick={() => router.back()}
-            className="text-sm text-disney-dark-blue hover:userline mb-6 block">
+            className="text-sm text-disney-dark-blue dark:text-disney-light-blue hover:underline mb-6 block">
                 Return to All Pins
             </button>
 
             <div
             className="
             bg-white
+            dark:bg-neutral-800
             border
-            border-gray-200
+            border-gray-500
+            dark:border-gray-200
             rounded-lg
             p-6
             flex
@@ -80,28 +82,28 @@ export default function PinfoPage({ params }) {
                 className="w-full md:w-64 aspect-square object-cover rounded-md">
                 </img>
                 <div className="flex flex-col gap-2">
-                    <h1 className="text-2xl font-bold text-gray-900">{pin.name}</h1>
-                    <p className="text-sm text-gray-500">{pin.series}</p>
-                    <p className="text-sm text-gray-700 mt-2">{pin.description}</p>
+                    <h1 className="text-2xl font-bold dark:text-gray-100 text-gray-900">{pin.name}</h1>
+                    <p className="text-sm dark:text-gray-300 text-gray-500">{pin.series}</p>
+                    <p className="text-sm dark:text-gray-100 text-gray-700 mt-2">{pin.description}</p>
 
                     <div className="mt-4 flex flex-col gap-1">
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm dark:text-gray-300 text-gray-600">
                             <span className="font-medium">Rarity:</span> {pin.rarity}
                         </p>
                         {pin.editionSize && (
-                            <p className="text-sm text-gray-600">
+                            <p className="text-sm dark:text-gray-300 text-gray-600">
                                 <span className="font-medium">Edition Size:</span> {pin.editionSize}
                             </p>
                         )}
-                        <p className="text-sm text-disney-dark-blue font-semibold mt-1">
+                        <p className="text-sm text-disney-dark-blue dark:text-disney-light-blue font-semibold mt-1">
                             {pin.credits} {pin.credits === 1 ? "credit": "credits"}
                         </p>
                         {!collectionLoading && (
                             <button
                             onClick={handleCollection}
                             className={`mt-4 px-4 py-2 rounded text-sm font-medium ${
-                                inCollection ? 'bg-red-500 hover:bg-red-600 text-white' : 
-                                'bg-disney-light-blue text-disney-dark-blue hover:bg-disney-dark-blue hover:text-white'}`}>
+                                inCollection ? 'bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-500 text-white' : 
+                                'bg-disney-light-blue text-disney-dark-blue dark:hover:bg-white dark:hover:text-disney-dark-blue hover:bg-disney-dark-blue hover:text-white'}`}>
                                     {inCollection ? 'Remove from Collection' : 'Add to My Collection'}
                             </button>
                         )}

@@ -14,9 +14,9 @@ export default function SideBar() {
     const pathname = usePathname()
     // variable to hold link class (preventing repeated code)
     // using block enables the whole link to become a clickable block 'button' style
-    const linkTagClassNameVariable = "block px-6 py-3 text-gray-700 hover:bg-white hover:text-disney-dark-blue"
+    const linkTagClassNameVariable = "block px-6 py-3 text-gray-700 hover:bg-white dark:hover:bg-neutral-800 dark:hover:text-disney-light-blue hover:text-disney-dark-blue"
     // variable to hold user feedback link class (highlights what page the user currently is at)
-    const userCurrentLinkClassNameVariable = "block px-6 py-3 text-disney-dark-blue bg-white font-semibold"
+    const userCurrentLinkClassNameVariable = "block px-6 py-3 text-disney-dark-blue bg-white font-semibold dark:text-disney-light-blue dark:bg-neutral-800"
 
     const { data: session } = useSession()
 
@@ -29,7 +29,19 @@ export default function SideBar() {
     return(
         <>
             {/* MOBILE TOP NAVBAR */}
-            <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-disney-light-blue px-4 py-3 flex items-center justify-between">
+            <div className="
+            md:hidden 
+            fixed 
+            top-0 
+            left-0 
+            right-0 
+            z-50 
+            bg-disney-light-blue
+            px-4 
+            py-3 
+            flex 
+            items-center 
+            justify-between">
                 <Link 
                 href={'/home'} 
                 onClick={closeSideBar}
@@ -95,7 +107,7 @@ export default function SideBar() {
                         My Pins
                     </Link>
                     <Link data-testid="pins" href="/pins" onClick={closeSideBar}
-                    className={pathname === "/pins" ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
+                    className={pathname === "/pins" || pathname.startsWith("/pins/") ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
                         All Pins
                     </Link>
                     <Link data-testid="profile" href="/profile" onClick={closeSideBar}

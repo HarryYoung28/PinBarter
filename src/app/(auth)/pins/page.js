@@ -35,8 +35,8 @@ export default function PinsPage() {
     return(
         <div className="p-6">
             {/* Title */}
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">All Pins</h1>
-            <p className="text-sm text-gray-500 mb-6">Browse and discover our catalogue of pins!</p>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">All Pins</h1>
+            <p className="text-sm text-gray-500 dark:text-gray-300 mb-6">Browse and discover our catalogue of pins!</p>
 
             {/* Search Bar */}
             <SearchBar
@@ -48,7 +48,7 @@ export default function PinsPage() {
 
             {/* Loading feedback for user */}
             {loading && (
-                <p className="text-sm text-gray-500 text-center">
+                <p className="text-sm text-gray-500 dark:text-gray-300 text-center">
                     Searching for pins...
                 </p>
             )}
@@ -56,7 +56,7 @@ export default function PinsPage() {
             {/* Pin Grid */}
             {/* No pins found */}
             {!loading && pins.length === 0 && (
-                <p className="text-sm text-gray-500 text-center">
+                <p className="text-sm text-gray-500 dark:text-gray-300 text-center">
                     Uh-oh, no pins found, sorry!
                 </p>
             )}
@@ -83,7 +83,9 @@ export default function PinsPage() {
                     hover:text-white 
                     disabled:opacity-50 
                     disabled:hover:bg-disney-light-blue 
-                    disabled:hover:text-disney-dark-blue">
+                    disabled:hover:text-disney-dark-blue
+                    dark:hover:bg-white
+                    dark:hover:text-disney-dark-blue">
                         Previous Page
                     </button>
                     <span className="text-sm text-gray-600">Page {page} of {totalPages}</span>
@@ -101,7 +103,9 @@ export default function PinsPage() {
                     hover:text-white 
                     disabled:opacity-50 
                     disabled:hover:bg-disney-light-blue 
-                    disabled:hover:text-disney-dark-blue">
+                    disabled:hover:text-disney-dark-blue
+                    dark:hover:bg-white
+                    dark:hover:text-disney-dark-blue">
                         Next Page
                     </button>
                 </div>
