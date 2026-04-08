@@ -72,14 +72,36 @@ export default function PinsPage() {
                     <button
                     onClick={() => setPage(page - 1)}
                     disabled={page === 1}
-                    className="px-4 py-2 text-sm bg-disney-light-blue text-disney-dark-blue rounded-md disabled:opacity-50">
+                    className="
+                    px-4 
+                    py-2 
+                    text-sm 
+                    bg-disney-light-blue 
+                    text-disney-dark-blue 
+                    rounded-md 
+                    hover:bg-disney-dark-blue 
+                    hover:text-white 
+                    disabled:opacity-50 
+                    disabled:hover:bg-disney-light-blue 
+                    disabled:hover:text-disney-dark-blue">
                         Previous Page
                     </button>
                     <span className="text-sm text-gray-600">Page {page} of {totalPages}</span>
                     <button 
                     onClick={() => setPage(page + 1)}
                     disabled={page === totalPages}
-                    className="px-4 py-2 text-sm bg-disney-light-blue text-disney-dark-blue rounded-md disabled:opacity-50">
+                    className="
+                    px-4 
+                    py-2 
+                    text-sm 
+                    bg-disney-light-blue 
+                    text-disney-dark-blue 
+                    rounded-md 
+                    hover:bg-disney-dark-blue 
+                    hover:text-white 
+                    disabled:opacity-50 
+                    disabled:hover:bg-disney-light-blue 
+                    disabled:hover:text-disney-dark-blue">
                         Next Page
                     </button>
                 </div>

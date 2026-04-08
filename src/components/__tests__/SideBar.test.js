@@ -9,13 +9,19 @@ jest.mock("next/navigation", () => ({
   usePathname: () => "/profile"
 }))
 
+// function to fix the useSession errors thrown during ticket 7.1
+jest.mock("next-auth/react", () => ({
+    useSession: () => ({ data: { user: { username: 'testuser' } } }),
+    signOut: jest.fn()
+}))
+
 // render the sidebar before each test
 beforeEach(() => {
     render(<SideBar />)
   })
 
 // AC 1 - Desktop sidebar visibility
-describe("AC-1 Sidebar renders all navigation links", () => {
+describe("Ticket 2 C-1 Sidebar renders all navigation links", () => {
     test("renders all navigation links", () => {
         expect(screen.getByTestId("home")).toBeInTheDocument()
         expect(screen.getByTestId("collection")).toBeInTheDocument()
@@ -27,7 +33,7 @@ describe("AC-1 Sidebar renders all navigation links", () => {
 })
 
 // AC 2 - Desktop link navigation confirmation
-describe("AC-2 Sidebar navigation links go to correct routes", () => {
+describe("Ticket 2 AC-2 Sidebar navigation links go to correct routes", () => {
     it("checks the home link navigates to /home", () => {
         expect(screen.getByTestId("home")).toHaveAttribute("href", "/home")
     })
@@ -54,24 +60,28 @@ describe("AC-2 Sidebar navigation links go to correct routes", () => {
 // Testing confirmed on an iPhone 15 Pro Max through FireFox and Safari browsers
 
 // AC 4 - Mobile Sidebar opens when burger menu button pressed
-describe("AC-4 Burger menu opens sidebar", () => {
+describe("Ticket 2 (updated Ticket 7.1) AC-4 Burger menu opens sidebar", () => {
     test("sidebar opens when burger button is clicked", () => {
         fireEvent.click(screen.getByTestId("burger-menu-button"))
-        expect(screen.getByTestId("x-close-button")).toBeInTheDocument()
+        // expect(screen.getByTestId("x-close-button")).toBeInTheDocument()
+        // This has been added in Ticket 7.1 to address the fact the X button was removed
+        expect(screen.getByTestId("mobile-overlay")).toBeInTheDocument()
     })
 })
 
-// AC 5 - Mobile Sidebar closes when X button pressed
-describe("AC-5 Burger menu closes when X is clicked", () => {
+// AC 5 - Mobile Sidebar closes when burger menu button pressed (updated from X button removal)
+// describe("AC-5 Burger menu closes when X is clicked", () => {
+describe("Ticket 2 (updated Ticket 7.1)  AC-5 Burger menu closes when Burger button is clicked whilst open", () => {
     test("sidebar closes when X button is clicked", () => {
         fireEvent.click(screen.getByTestId("burger-menu-button"))
-        fireEvent.click(screen.getByTestId("x-close-button"))
+        // This has been added in Ticket 7.1 to address the fact the X button was removed
+        fireEvent.click(screen.getByTestId("burger-menu-button"))
         expect(screen.queryByTestId("sidebar-div")).toHaveClass("-translate-x-full")
     })
 })
 
 // AC 6 - Mobile Sidebar closes when navigation link is selected
-describe("AC-6 Mobile Sidebar navigation link is selected", () => {
+describe("Ticket 2 AC-6 Mobile Sidebar navigation link is selected", () => {
     test("sidebar closes when X button is clicked", () => {
         fireEvent.click(screen.getByTestId("burger-menu-button"))
         fireEvent.click(screen.getByTestId("profile"))
@@ -80,7 +90,7 @@ describe("AC-6 Mobile Sidebar navigation link is selected", () => {
 })
 
 // AC 7 - Highlighting on current page on navigation menu
-describe("AC-7 Highlighting on current page link", () => {
+describe("Ticket 2 AC-7 Highlighting on current page link", () => {
     test("profile link is highlighted as it is the current page", () => {
         // text-disney-dark-blue is only on the Links that have been highlighted
         expect(screen.getByTestId("profile")).toHaveClass("text-disney-dark-blue")
@@ -90,10 +100,33 @@ describe("AC-7 Highlighting on current page link", () => {
     })
 })
 
-// // AC 8 - Snapshot Testing
-describe("AC-8 SideBar.js snapshot testing", () => {
+// AC 8 - Snapshot Testing
+describe("Ticket 2 AC-8 SideBar.js snapshot testing", () => {
     it("matches snapshot", () => {
         const { container } = render(<SideBar />)
         expect(container).toMatchSnapshot()
+    })
+})
+
+
+// ----------------------- TICKET 7.1 ----------------------- 
+// AC-1 Username in navbar
+describe("Ticket 7.1 AC-1 Username displays in sidebar", () => {
+    it("displays the logged in username", () => {
+        expect(screen.getByText("testuser")).toBeInTheDocument()
+    })
+})
+
+// AC-2 PinBarter logo directs to /home
+describe("Ticket 7.1 AC-2 PinBarter logo links to home", () => {
+    test("desktop logo navigates to /home", () => {
+        expect(screen.getByTestId("logo-link")).toHaveAttribute("href", "/home")
+    })
+})
+
+// AC-3 help icon directs to /help
+describe("Ticket 7.1 AC-3 Help icon links to help page", () => {
+    test("help icon navigates to /help", () => {
+        expect(screen.getByTestId("help-link")).toHaveAttribute("href", "/help")
     })
 })

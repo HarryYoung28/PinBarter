@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { signOut } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
 
 export default function SideBar() {
 
@@ -18,6 +18,8 @@ export default function SideBar() {
     // variable to hold user feedback link class (highlights what page the user currently is at)
     const userCurrentLinkClassNameVariable = "block px-6 py-3 text-disney-dark-blue bg-white font-semibold"
 
+    const { data: session } = useSession()
+
     function closeSideBar() {
         setIsOpen(false);
     }
@@ -28,10 +30,14 @@ export default function SideBar() {
         <>
             {/* MOBILE TOP NAVBAR */}
             <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-disney-light-blue px-4 py-3 flex items-center justify-between">
-                <h1 className="text-xl font-bold">
+                <Link 
+                href={'/home'} 
+                onClick={closeSideBar}
+                data-testid="logo-link"><h1 className="text-xl font-bold">
                     <span className="text-gray-900">Pin</span>
                     <span className="text-disney-dark-blue">Barter</span>
                 </h1>
+                </Link>
                 <button
                     onClick={() => setIsOpen(!isOpen)}
                     data-testid="burger-menu-button"
@@ -44,6 +50,7 @@ export default function SideBar() {
             {/* MOBILE OVERLAY (dims background) */}
             {isOpen && (
                 <div
+                data-testid="mobile-overlay"
                 className="md:hidden fixed inset-0 z-40 bg-gray-600/60"
                 onClick={closeSideBar}>
                 </div>
@@ -71,10 +78,11 @@ export default function SideBar() {
                 <div className="hidden md:flex p-6 flex items-center justify-between">
                     {/* text-2xl ensures WCAG compliance with contrast at 6.9:1 for disney-dark-blue on 
                     disney-light-blue, with bold font as it is the Logo */}
-                    <h1 className="text-2xl font-bold">
+                    <Link href={'/home'}><h1 className="text-2xl font-bold">
                         <span className="text-gray-900">Pin</span>
                         <span className="text-disney-dark-blue">Barter</span>
                     </h1>
+                    </Link>
                 </div>
                 {/* div for LINKS to pages */}
                 <div className="flex-1 flex flex-col">
@@ -105,9 +113,11 @@ export default function SideBar() {
                 </div>
                 {/* div for BOTTOM of sidebar signout and user info */}
                 <div className="items-center border-gray-200 flex flex-col pb-6">
-                    {/* pre-set avatars and username section */}
-                    <div className="flex items-center gap-3 mb-4">
-                        <div className="
+                    <div className="flex flex-col items-center gap-3 mb-4">
+                        {/*  username of signed in user */}
+                        <span className="text-sm text-gray-700">{session?.user?.username}</span>
+                        {/* help link */}
+                        <Link href={'/help'} data-testid="help-link" onClick={closeSideBar} className="
                         w-8 
                         h-8 
                         rounded-full 
@@ -119,9 +129,7 @@ export default function SideBar() {
                         text-sm 
                         font-bold">
                             ?
-                        </div>
-                        {/* replace with username of signed in user */}
-                        <span className="text-sm text-gray-700">Username</span>
+                        </Link>
                     </div>
                     {/* Sign Out -- using signOut from NextAuth destroys the JWT, redirects to Login */}
                     <div>

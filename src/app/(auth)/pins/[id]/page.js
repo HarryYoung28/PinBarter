@@ -8,6 +8,8 @@ export default function PinfoPage({ params }) {
     const [pin, setPin] = useState(null)
     const [loading, setLoading] = useState(true)
     const router = useRouter()
+    const [inCollection, setInCollection] = useState(false)
+    const [collectionLoading, setCollectionLoading] = useState(true)
 
     useEffect(() => {
         async function fetchPin() {
@@ -19,10 +21,39 @@ export default function PinfoPage({ params }) {
         fetchPin()
     }, [id])
 
+    useEffect(() => {
+        async function checkCollection() {
+            const response = await fetch('/api/collection')
+            const data = await response.json()
+            const found = data.collection.some(entry => entry.pinId === id)
+            setInCollection(found)
+            setCollectionLoading(false)
+        }
+        checkCollection()
+    }, [id])
+
     if (loading) return <div
     className="p-6 text-sm text-gray-500">Loading pinfo...</div>
     if (!pin) return <div
     className="p-6 text-sm text-gray-500">Uh-oh, this pin has not been found, sorry!</div>
+
+    async function handleCollection() {
+        if (inCollection) {
+            await fetch('/api/collection', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ pinId: id })
+            })
+            setInCollection(false)
+        } else {
+            await fetch('/api/collection', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ pinId: id })
+            })
+            setInCollection(true)
+        }
+    }
 
     return(
         <div className="p-6 max-w-2xl">
@@ -65,6 +96,15 @@ export default function PinfoPage({ params }) {
                         <p className="text-sm text-disney-dark-blue font-semibold mt-1">
                             {pin.credits} {pin.credits === 1 ? "credit": "credits"}
                         </p>
+                        {!collectionLoading && (
+                            <button
+                            onClick={handleCollection}
+                            className={`mt-4 px-4 py-2 rounded text-sm font-medium ${
+                                inCollection ? 'bg-red-500 hover:bg-red-600 text-white' : 
+                                'bg-disney-light-blue text-disney-dark-blue hover:bg-disney-dark-blue hover:text-white'}`}>
+                                    {inCollection ? 'Remove from Collection' : 'Add to My Collection'}
+                            </button>
+                        )}
                     </div>
                 </div>
             
