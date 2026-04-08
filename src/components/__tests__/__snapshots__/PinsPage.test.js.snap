@@ -3,7 +3,7 @@
 exports[`AC-5, PinCard snapshot matches snapshot 1`] = `
 <div>
   <div
-    class="bg-white border border-gray-200 rounded-lg p-3 cursor-pointer hover:shadow-md transition-shadow"
+    class=" bg-white  dark:bg-neutral-800  border  border-gray-500 dark:border-gray-200  rounded-lg p-3  cursor-pointer  hover:shadow-md  transition-shadow hover:ring"
     data-testid="pin-card"
   >
     <img
@@ -12,17 +12,17 @@ exports[`AC-5, PinCard snapshot matches snapshot 1`] = `
       src="https://placehold.co/200x200?text=Kermit%20the%20Frog"
     />
     <p
-      class="text-sm font-semibold text-gray-900 truncate"
+      class="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate"
     >
       Kermit the Frog
     </p>
     <p
-      class="text-xs text-gray-500 truncate"
+      class="text-xs text-gray-500 dark:text-gray-300 truncate"
     >
       Muppets Christmas Carol
     </p>
     <p
-      class="text-xs text-disney-dark-blue font-medium mt-1"
+      class="text-xs text-disney-dark-blue dark:text-disney-light-blue font-medium mt-1"
     >
       3
        

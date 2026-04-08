@@ -139,13 +139,14 @@ export default function SideBar() {
                         items-center 
                         justify-center 
                         text-sm 
-                        font-bold">
+                        font-bold
+                        hover:ring-2">
                             ?
                         </Link>
                     </div>
                     {/* Sign Out -- using signOut from NextAuth destroys the JWT, redirects to Login */}
                     <div>
-                        <button className="text-sm text-gray-600 hover:text-red-500"
+                        <button className="text-sm text-gray-600 hover:underline hover:text-red-500"
                         onClick={() => signOut({ callbackUrl: '/login' })}>
                             Sign Out
                         </button>

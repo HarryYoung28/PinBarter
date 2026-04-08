@@ -6,12 +6,12 @@ exports[`Ticket 8 AC-6 Snapshot testing Collection page matches snapshot 1`] = `
     class="p-6"
   >
     <h1
-      class="text-2xl font-bold text-gray-900 mb-2"
+      class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2"
     >
       My Pins
     </h1>
     <p
-      class="text-sm text-gray-500 mb-6"
+      class="text-sm text-gray-500 dark:text-gray-300 mb-6"
     >
       Your personal pin collection.
     </p>
@@ -19,7 +19,7 @@ exports[`Ticket 8 AC-6 Snapshot testing Collection page matches snapshot 1`] = `
       class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
     >
       <div
-        class="bg-white border border-gray-200 rounded-lg p-3 cursor-pointer hover:shadow-md transition-shadow"
+        class=" bg-white  dark:bg-neutral-800  border  border-gray-500 dark:border-gray-200  rounded-lg p-3  cursor-pointer  hover:shadow-md  transition-shadow hover:ring"
         data-testid="pin-card"
       >
         <img
@@ -28,17 +28,17 @@ exports[`Ticket 8 AC-6 Snapshot testing Collection page matches snapshot 1`] = `
           src="https://placehold.co/200x200?text=Kermit%20the%20Frog"
         />
         <p
-          class="text-sm font-semibold text-gray-900 truncate"
+          class="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate"
         >
           Kermit the Frog
         </p>
         <p
-          class="text-xs text-gray-500 truncate"
+          class="text-xs text-gray-500 dark:text-gray-300 truncate"
         >
           Muppets Christmas Carol
         </p>
         <p
-          class="text-xs text-disney-dark-blue font-medium mt-1"
+          class="text-xs text-disney-dark-blue dark:text-disney-light-blue font-medium mt-1"
         >
           3
            
@@ -50,7 +50,7 @@ exports[`Ticket 8 AC-6 Snapshot testing Collection page matches snapshot 1`] = `
       class="mt-8 text-center"
     >
       <button
-        class=" px-4  py-2  text-sm  bg-disney-light-blue  text-disney-dark-blue  rounded-md  hover:bg-disney-dark-blue  hover:text-white"
+        class=" px-4  py-2  text-sm  bg-disney-light-blue  text-disney-dark-blue  rounded-md  hover:bg-disney-dark-blue  dark:hover:bg-white dark:hover:text-disney-dark-blue hover:text-white"
       >
         Browse More Pins
       </button>
