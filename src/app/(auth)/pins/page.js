@@ -84,6 +84,7 @@ export default function PinsPage() {
                     disabled:opacity-50 
                     disabled:hover:bg-disney-light-blue 
                     disabled:hover:text-disney-dark-blue
+                    disabled:cursor-not-allowed
                     dark:hover:bg-white
                     dark:hover:text-disney-dark-blue">
                         Previous Page
@@ -104,6 +105,7 @@ export default function PinsPage() {
                     disabled:opacity-50 
                     disabled:hover:bg-disney-light-blue 
                     disabled:hover:text-disney-dark-blue
+                    disabled:cursor-not-allowed
                     dark:hover:bg-white
                     dark:hover:text-disney-dark-blue">
                         Next Page

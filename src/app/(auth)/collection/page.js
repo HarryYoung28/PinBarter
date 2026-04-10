@@ -77,6 +77,7 @@ export default function Collection() {
                                 dark:hover:text-disney-dark-blue
                                 disabled:opacity-50 
                                 disabled:hover:bg-disney-light-blue 
+                                disabled:cursor-not-allowed
                                 disabled:hover:text-disney-dark-blue">
                                 Previous Page
                             </button>
@@ -97,6 +98,7 @@ export default function Collection() {
                                 dark:hover:bg-white
                                 dark:hover:text-disney-dark-blue
                                 disabled:hover:bg-disney-light-blue 
+                                disabled:cursor-not-allowed
                                 disabled:hover:text-disney-dark-blue">
                                 Next Page
                             </button>

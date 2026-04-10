@@ -37,10 +37,9 @@ export default function PinfoPage({ params }) {
 
     useEffect(() => {
         async function checkWishlist() {
-            const response = await fetch('/api/wishlist')
+            const response = await fetch(`/api/wishlist/check?pinId=${id}`)
             const data = await response.json()
-            const found = data.wishlist.some(entry => entry.pinId === id)
-            setInWishlist(found)
+            setInWishlist(data.inWishlist)
             setWishlistLoading(false)
         }
         checkWishlist()
@@ -144,16 +143,17 @@ export default function PinfoPage({ params }) {
                                     {inCollection ? 'Remove from Collection' : 'Add to My Collection'}
                             </button>
                         )}
-                        {!wishlistLoading && !inCollection && (
+                        {!wishlistLoading && (
                             <button
                             data-testid="wishlist-button"
                             onClick={handleWishlist}
-                            className={`mt-2 px-4 py-2 rounded text-sm font-medium ${
+                            disabled={inCollection}
+                            className={`mt-2 px-4 py-2 rounded text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed ${
                                 inWishlist ? 'bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-500 text-white' :
                                 'bg-disney-light-blue text-disney-dark-blue dark:hover:bg-white dark:hover:text-disney-dark-blue hover:bg-disney-dark-blue hover:text-white'}`}>
                                     {inWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'}
-    </button>
-)}
+                            </button>
+                        )}
                     </div>
                 </div>
             

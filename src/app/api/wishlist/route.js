@@ -12,11 +12,20 @@ export async function GET(request) {
     const user = await prisma.user.findUnique({
         where: { username: session.user.username }
     })
+    const { searchParams } = new URL(request.url)
+    const isExport = searchParams.get("export") === "true"
+    const page = parseInt(searchParams.get("page") || "1")
+    const pageSize = 12
+    const total = await prisma.wishlist.count({
+        where: { userId: user.id }
+    })
     const wishlist = await prisma.wishlist.findMany({
         where: { userId: user.id },
-        include: { pin: true }
+        include: { pin: true },
+        // this is essential for the printing of the wishlist (ignore pagnation and get everything)
+        ...(isExport ? {} : { skip: (page - 1) * pageSize, take: pageSize })
     })
-    return NextResponse.json({ wishlist })
+    return NextResponse.json({ wishlist, total })
 }
 
 // ADD PIN TO WISHLIST
