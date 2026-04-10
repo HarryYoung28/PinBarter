@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from "react"
 import { useParams, useRouter } from "next/navigation"
+import toast from "react-hot-toast"
 
 export default function PinfoPage({ params }) {
     // Hooks
@@ -10,6 +11,8 @@ export default function PinfoPage({ params }) {
     const router = useRouter()
     const [inCollection, setInCollection] = useState(false)
     const [collectionLoading, setCollectionLoading] = useState(true)
+    const [inWishlist, setInWishlist] = useState(false)
+    const [wishlistLoading, setWishlistLoading] = useState(true)
 
     useEffect(() => {
         async function fetchPin() {
@@ -32,6 +35,17 @@ export default function PinfoPage({ params }) {
         checkCollection()
     }, [id])
 
+    useEffect(() => {
+        async function checkWishlist() {
+            const response = await fetch('/api/wishlist')
+            const data = await response.json()
+            const found = data.wishlist.some(entry => entry.pinId === id)
+            setInWishlist(found)
+            setWishlistLoading(false)
+        }
+        checkWishlist()
+    }, [id])
+
     if (loading) return <div
     className="p-6 text-sm text-gray-500">Loading pinfo...</div>
     if (!pin) return <div
@@ -46,12 +60,35 @@ export default function PinfoPage({ params }) {
             })
             setInCollection(false)
         } else {
-            await fetch('/api/collection', {
+            const response = await fetch('/api/collection', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ pinId: id })
             })
+            const data = await response.json()
             setInCollection(true)
+            if (data.removedFromWishlist) {
+                setInWishlist(false)
+                toast('Wish Granted! Pin added to collection, and removed from Wishlist!')
+            }
+        }
+    }
+
+    async function handleWishlist() {
+        if (inWishlist) {
+            await fetch('/api/wishlist', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ pinId: id })
+            })
+            setInWishlist(false)
+        } else {
+            await fetch('/api/wishlist', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ pinId: id })
+            })
+            setInWishlist(true)
         }
     }
 
@@ -62,7 +99,7 @@ export default function PinfoPage({ params }) {
             className="text-sm text-disney-dark-blue dark:text-disney-light-blue hover:underline mb-6 block">
                 Return to All Pins
             </button>
-
+            <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">Pin Info</h2>
             <div
             className="
             bg-white
@@ -107,6 +144,16 @@ export default function PinfoPage({ params }) {
                                     {inCollection ? 'Remove from Collection' : 'Add to My Collection'}
                             </button>
                         )}
+                        {!wishlistLoading && !inCollection && (
+                            <button
+                            data-testid="wishlist-button"
+                            onClick={handleWishlist}
+                            className={`mt-2 px-4 py-2 rounded text-sm font-medium ${
+                                inWishlist ? 'bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-500 text-white' :
+                                'bg-disney-light-blue text-disney-dark-blue dark:hover:bg-white dark:hover:text-disney-dark-blue hover:bg-disney-dark-blue hover:text-white'}`}>
+                                    {inWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'}
+    </button>
+)}
                     </div>
                 </div>
             

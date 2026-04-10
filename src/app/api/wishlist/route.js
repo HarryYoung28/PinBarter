@@ -3,93 +3,56 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import prisma from "@/lib/prisma"
 
-// GET ALL PINS FOR USER
+// GET ALL PINS IN WISHLIST FOR USER
 export async function GET(request) {
     const session = await getServerSession(authOptions)
-
     if (!session) {
         return NextResponse.json({ error: "Not authenticated" }, { status: 401 })
     }
-
     const user = await prisma.user.findUnique({
         where: { username: session.user.username }
     })
-
-    const { searchParams } = new URL(request.url)
-    const page = parseInt(searchParams.get("page") || "1")
-    const pageSize = 12
-
-    const total = await prisma.collection.count({
-        where: { userId: user.id }
-    })
-
-    const collection = await prisma.collection.findMany({
+    const wishlist = await prisma.wishlist.findMany({
         where: { userId: user.id },
-        include: { pin: true },
-        skip: (page - 1) * pageSize,
-        take: pageSize
+        include: { pin: true }
     })
-
-    return NextResponse.json({ collection, total })
+    return NextResponse.json({ wishlist })
 }
 
-// ADD PIN TO COLLECTION
+// ADD PIN TO WISHLIST
 export async function POST(request) {
     const session = await getServerSession(authOptions)
-
     if (!session) {
         return NextResponse.json({ error: "Not authenticated" }, { status: 401 })
     }
-
     const user = await prisma.user.findUnique({
         where: { username: session.user.username }
     })
-
     const { pinId } = await request.json()
-
-    const existing = await prisma.collection.findFirst({
+    const existing = await prisma.wishlist.findFirst({
         where: { userId: user.id, pinId: pinId }
     })
-
     if (existing) {
-        return NextResponse.json({ error: "Pin already in collection" }, { status: 400 })
+        return NextResponse.json({ error: "Pin already in wishlist" }, { status: 400 })
     }
-
-    const collectionEntry = await prisma.collection.create({
+    const wishlistEntry = await prisma.wishlist.create({
         data: { userId: user.id, pinId: pinId }
     })
-    
-    let removedFromWishlist = false
-    const wishlistEntry = await prisma.wishlist.findFirst({
-        where: { userId: user.id, pinId: pinId }
-    })
-    if (wishlistEntry) {
-        await prisma.wishlist.delete({
-            where: { id: wishlistEntry.id }
-        })
-        removedFromWishlist = true
-    }
-    
-    return NextResponse.json({ ...collectionEntry, removedFromWishlist }, { status: 201 })
+    return NextResponse.json(wishlistEntry, { status: 201 })
 }
 
-// REMOVE PIN FROM COLLECTION
+// REMOVE PIN FROM WISHLIST
 export async function DELETE(request) {
     const session = await getServerSession(authOptions)
-
     if (!session) {
         return NextResponse.json({ error: "Not authenticated" }, { status: 401 })
     }
-
     const user = await prisma.user.findUnique({
         where: { username: session.user.username }
     })
-
     const { pinId } = await request.json()
-
-    await prisma.collection.deleteMany({
+    await prisma.wishlist.deleteMany({
         where: { userId: user.id, pinId: pinId }
     })
-
-    return NextResponse.json({ message: "Pin removed from collection" })
+    return NextResponse.json({ message: "Pin removed from wishlist" })
 }
