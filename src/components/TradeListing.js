@@ -70,19 +70,22 @@ export default function TradeListing({ pin, onClose, onSuccess }) {
                 />
 
                 {/* Accept below credit value */}
-                <div className="flex items-center gap-2 mb-3">
-                    <input
-                        type="checkbox"
-                        id="acceptBelow"
-                        data-testid="accept-below-checkbox"
-                        checked={acceptBelow}
-                        onChange={(e) => setAcceptBelow(e.target.checked)}
-                        className="w-4 h-4"
-                    />
-                    <label htmlFor="acceptBelow" className="text-sm text-gray-700 dark:text-gray-300">
-                        Willing to accept below credit value?
-                    </label>
-                </div>
+                {/* Only shows for pins that are greater than 1 credit in value */}
+                {pin.credits > 1 && (
+                    <div className="flex items-center gap-2 mb-3">
+                        <input
+                            type="checkbox"
+                            id="acceptBelow"
+                            data-testid="accept-below-checkbox"
+                            checked={acceptBelow}
+                            onChange={(e) => setAcceptBelow(e.target.checked)}
+                            className="w-4 h-4"
+                        />
+                        <label htmlFor="acceptBelow" className="text-sm text-gray-700 dark:text-gray-300">
+                            Willing to accept below credit value?
+                        </label>
+                    </div>
+                )}
 
                 {/* Credit flexibility slider */}
                 {acceptBelow && (
@@ -103,7 +106,7 @@ export default function TradeListing({ pin, onClose, onSuccess }) {
                             type="range"
                             data-testid="credit-flexibility-slider"
                             min={1}
-                            max={10}
+                            max={Math.max(1, pin.credits - 1)}
                             value={creditFlexibility}
                             onChange={(e) => setCreditFlexibility(parseInt(e.target.value))}
                             className="w-full"
@@ -128,7 +131,7 @@ export default function TradeListing({ pin, onClose, onSuccess }) {
                     <button
                         data-testid="cancel-button"
                         onClick={onClose}
-                        className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:underline">
+                        className="px-4 py-2 text-sm text-red-500 hover:underline">
                         Cancel
                     </button>
                     <button
