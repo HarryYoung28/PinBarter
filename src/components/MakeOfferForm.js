@@ -7,6 +7,7 @@ export default function MakeOfferForm({ listing, onClose, onSuccess }) {
     const [selectedPins, setSelectedPins] = useState([null])
     const [submitting, setSubmitting] = useState(false)
     const [error, setError] = useState("")
+    const [overValueWarning, setOverValueWarning] = useState(false)
 
     useEffect(() => {
         async function fetchAvailablePins() {
@@ -66,6 +67,11 @@ export default function MakeOfferForm({ listing, onClose, onSuccess }) {
         }
         if (!meetsMinimum) {
             setError(`Your offer must be worth at least ${minimumCredits} credits!`)
+            return
+        }
+        // checks if the user is going to offer more than the value of the pin to confirm
+        if (totalCredits > listing.pin.credits && !overValueWarning) {
+            setOverValueWarning(true)
             return
         }
         setSubmitting(true)
@@ -171,6 +177,34 @@ export default function MakeOfferForm({ listing, onClose, onSuccess }) {
                             </p>
                         </div>
                     </>
+                )}
+
+                {overValueWarning && (
+                    <div className="
+                    bg-yellow-50 
+                    dark:bg-yellow-900/20 
+                    border 
+                    border-yellow-300 
+                    dark:border-yellow-600 
+                    rounded-md 
+                    p-3 
+                    mb-3">
+                        <p className="text-sm text-yellow-700 dark:text-yellow-400 font-medium">
+                            You are offering more than the pin's credit value! Are you happy to continue?
+                        </p>
+                        <div className="flex gap-2 mt-2">
+                            <button
+                                onClick={() => setOverValueWarning(false)}
+                                className="text-xs text-gray-500 hover:underline">
+                                Go back
+                            </button>
+                            <button
+                                onClick={handleSubmit}
+                                className="text-xs text-yellow-700 dark:text-yellow-400 font-medium hover:underline">
+                                Yes, send offer anyway
+                            </button>
+                        </div>
+                    </div>
                 )}
 
                 {error && (
