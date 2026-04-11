@@ -17,11 +17,16 @@ export default function MakeOfferForm({ listing, onClose, onSuccess }) {
             const listingsRes = await fetch('/api/trade-listings/mine')
             const listingsData = await listingsRes.json()
 
+            const offeredRes = await fetch('/api/trades/offered-pins')
+            const offeredData = await offeredRes.json()
+
+
             const listedPinIds = listingsData.listings.map(l => l.pinId)
+            const offeredPinIds = offeredData.pinIds
 
             const available = collectionData.collection
                 .map(entry => entry.pin)
-                .filter(pin => !listedPinIds.includes(pin.id))
+                .filter(pin => !listedPinIds.includes(pin.id) && !offeredPinIds.includes(pin.id))
 
             setCollection(available)
             setLoading(false)
