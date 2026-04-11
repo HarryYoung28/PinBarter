@@ -113,7 +113,7 @@ export default function TradeListing({ pin, onClose, onSuccess }) {
                         />
                         <div className="flex justify-between text-xs text-gray-400 mt-1">
                             <span>1 credit</span>
-                            <span>10 credits</span>
+                            <span>{Math.max(1, pin.credits - 1)} credits</span>
                         </div>
                         <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                             Minimum offer accepted: <span className="font-medium">{Math.max(1, pin.credits - creditFlexibility)} credits</span>
