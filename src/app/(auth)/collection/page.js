@@ -1,13 +1,16 @@
 'use client'
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
+import TradeListing from "@/components/TradeListing"
 import PinGrid from "@/components/PinGrid"
+import toast from "react-hot-toast"
 
 export default function Collection() {
     const [collection, setCollection] = useState([])
     const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
     const [total, setTotal] = useState(0)
+    const [selectedPin, setSelectedPin] = useState(null)
     const router = useRouter()
 
     useEffect(() => {
@@ -57,7 +60,7 @@ export default function Collection() {
 
             {!loading && pins.length > 0 && (
                 <>
-                    <PinGrid pins={pins} />
+                    <PinGrid pins={pins} showTradeButton={true} onTradeClick={(pin) => setSelectedPin(pin)}/>
                     {/* the buttons for pages ONLY show if they are more than 1 page */}
                     {totalPages > 1 && (
                         <div className="flex justify-center items-center gap-4 mt-8">
@@ -123,6 +126,16 @@ export default function Collection() {
                         </button>
                     </div>
                 </>
+            )}
+            {selectedPin && (
+                <TradeListing
+                    pin={selectedPin}
+                    onClose={() => setSelectedPin(null)}
+                    onSuccess={() => {
+                        setSelectedPin(null)
+                        toast("Pin posted to Trading Post!")
+                    }}
+                />
             )}
         </div>
     )

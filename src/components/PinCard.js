@@ -1,7 +1,7 @@
 'use client'
 import { useRouter } from "next/navigation"
 
-export default function PinCard({ pin }) {
+export default function PinCard({ pin, showTradeButton, onTradeClick }) {
     const router = useRouter()
 
     return (
@@ -29,6 +29,17 @@ export default function PinCard({ pin }) {
             <p className="text-xs text-disney-dark-blue dark:text-disney-light-blue font-medium mt-1">
                 {pin.credits} {pin.credits === 1 ? "credit" : "credits"}
             </p>
+            {showTradeButton && (
+                <button
+                    data-testid="trade-button"
+                    onClick={(e) => {
+                        e.stopPropagation()
+                        onTradeClick(pin)
+                    }}
+                    className="mt-2 w-full px-2 py-1 text-xs bg-disney-light-blue text-disney-dark-blue rounded hover:bg-disney-dark-blue hover:text-white dark:hover:bg-white dark:hover:text-disney-dark-blue">
+                    Post to Trading Post
+                </button>
+            )}
         </div>
     )
 }
