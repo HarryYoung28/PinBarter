@@ -195,12 +195,22 @@ export default function MakeOfferForm({ listing, onClose, onSuccess }) {
                         <div className="flex gap-2 mt-2">
                             <button
                                 onClick={() => setOverValueWarning(false)}
-                                className="text-xs text-gray-500 hover:underline">
+                                className="
+                                px-3 
+                                py-1 
+                                text-xs 
+                                rounded 
+                                bg-gray-200 
+                                dark:bg-neutral-600 
+                                text-gray-700 
+                                dark:text-gray-200 
+                                hover:bg-gray-300 
+                                dark:hover:bg-neutral-500">
                                 Go back
                             </button>
                             <button
                                 onClick={handleSubmit}
-                                className="text-xs text-yellow-700 dark:text-yellow-400 font-medium hover:underline">
+                                className="px-3 py-1 text-xs rounded bg-yellow-500 hover:bg-yellow-600 text-white font-medium">
                                 Yes, send offer anyway
                             </button>
                         </div>
@@ -221,7 +231,7 @@ export default function MakeOfferForm({ listing, onClose, onSuccess }) {
                     <button
                         data-testid="submit-offer-button"
                         onClick={handleSubmit}
-                        disabled={submitting || !hasSelection || !meetsMinimum}
+                        disabled={submitting || !hasSelection || !meetsMinimum || overValueWarning}
                         className="
                         px-4 
                         py-2 
