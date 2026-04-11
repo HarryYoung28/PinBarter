@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from "react"
 import SearchBar from "@/components/SearchBar"
+import { useSession } from "next-auth/react"
 
 export default function TradingPostPage() {
     const [listings, setListings] = useState([])
@@ -9,6 +10,7 @@ export default function TradingPostPage() {
     const [sort, setSort] = useState("newest")
     const [page, setPage] = useState(1)
     const [total, setTotal] = useState(0)
+    const { data: session } = useSession()
 
     useEffect(() => {
         async function fetchListings() {
@@ -81,7 +83,17 @@ export default function TradingPostPage() {
                             <div
                                 key={listing.id}
                                 data-testid="trade-listing-card"
-                                className="bg-white dark:bg-neutral-800 border border-gray-500 dark:border-gray-200 rounded-lg p-4 flex flex-col gap-2">
+                                className="
+                                bg-white 
+                                dark:bg-neutral-800 
+                                border 
+                                border-gray-500 
+                                dark:border-gray-200 
+                                rounded-lg 
+                                p-4 
+                                flex 
+                                flex-col 
+                                gap-2">
                                 <div className="flex gap-4">
                                     <img
                                         src={listing.pin.imageUrl || `https://placehold.co/80x80?text=${encodeURIComponent(listing.pin.name)}`}
@@ -104,14 +116,31 @@ export default function TradingPostPage() {
                                         <span className="font-medium">Looking for:</span> {listing.wantsDescription}
                                     </p>
                                     <p className="text-xs text-gray-600 dark:text-gray-300 mt-1">
-                                        <span className="font-medium">Minimum offer:</span> {listing.creditFlexibility > 0 ? `${listing.pin.credits - listing.creditFlexibility} credits` : `${listing.pin.credits} credits`}
+                                        <span 
+                                        className="font-medium">
+                                            Minimum offer:
+                                        </span> {listing.creditFlexibility > 0 ? `${listing.pin.credits - listing.creditFlexibility} credits` : `${listing.pin.credits} credits`}
                                     </p>
                                 </div>
-                                <button
+                                {listing.user.username !== session?.user?.username && ( 
+                                    <button
                                     data-testid="make-offer-button"
-                                    className="mt-auto w-full px-4 py-2 text-sm bg-disney-light-blue text-disney-dark-blue rounded hover:bg-disney-dark-blue hover:text-white dark:hover:bg-white dark:hover:text-disney-dark-blue">
+                                    className="
+                                    mt-auto 
+                                    w-full 
+                                    px-4 
+                                    py-2 
+                                    text-sm 
+                                    bg-disney-light-blue 
+                                    text-disney-dark-blue 
+                                    rounded 
+                                    hover:bg-disney-dark-blue 
+                                    hover:text-white 
+                                    dark:hover:bg-white 
+                                    dark:hover:text-disney-dark-blue">
                                     Make an Offer
                                 </button>
+                                )}
                             </div>
                         ))}
                     </div>
@@ -121,14 +150,42 @@ export default function TradingPostPage() {
                             <button
                                 onClick={() => setPage(page - 1)}
                                 disabled={page === 1}
-                                className="px-4 py-2 text-sm bg-disney-light-blue text-disney-dark-blue rounded-md hover:bg-disney-dark-blue hover:text-white dark:hover:bg-white dark:hover:text-disney-dark-blue disabled:opacity-50 disabled:hover:bg-disney-light-blue disabled:cursor-not-allowed disabled:hover:text-disney-dark-blue">
+                                className="
+                                px-4 
+                                py-2 
+                                text-sm 
+                                bg-disney-light-blue 
+                                text-disney-dark-blue 
+                                rounded-md 
+                                hover:bg-disney-dark-blue 
+                                hover:text-white 
+                                dark:hover:bg-white 
+                                dark:hover:text-disney-dark-blue 
+                                disabled:opacity-50 
+                                disabled:hover:bg-disney-light-blue 
+                                disabled:cursor-not-allowed 
+                                disabled:hover:text-disney-dark-blue">
                                 Previous Page
                             </button>
                             <span className="text-sm text-gray-600 dark:text-gray-300">Page {page} of {totalPages}</span>
                             <button
                                 onClick={() => setPage(page + 1)}
                                 disabled={page === totalPages}
-                                className="px-4 py-2 text-sm bg-disney-light-blue text-disney-dark-blue rounded-md hover:bg-disney-dark-blue hover:text-white dark:hover:bg-white dark:hover:text-disney-dark-blue disabled:opacity-50 disabled:hover:bg-disney-light-blue disabled:cursor-not-allowed disabled:hover:text-disney-dark-blue">
+                                className="
+                                px-4 
+                                py-2 
+                                text-sm 
+                                bg-disney-light-blue 
+                                text-disney-dark-blue 
+                                rounded-md 
+                                hover:bg-disney-dark-blue 
+                                hover:text-white 
+                                dark:hover:bg-white 
+                                dark:hover:text-disney-dark-blue 
+                                disabled:opacity-50 
+                                disabled:hover:bg-disney-light-blue 
+                                disabled:cursor-not-allowed 
+                                disabled:hover:text-disney-dark-blue">
                                 Next Page
                             </button>
                         </div>
