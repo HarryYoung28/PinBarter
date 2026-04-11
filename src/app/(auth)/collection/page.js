@@ -81,7 +81,7 @@ export default function Collection() {
                                 disabled:hover:text-disney-dark-blue">
                                 Previous Page
                             </button>
-                            <span className="text-sm text-gray-600">Page {page} of {totalPages}</span>
+                            <span className="text-sm text-gray-600 dark:test-gray-300">Page {page} of {totalPages}</span>
                             <button
                                 onClick={() => setPage(page + 1)}
                                 disabled={page === totalPages}
