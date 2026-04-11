@@ -110,6 +110,10 @@ export default function SideBar() {
                     className={pathname === "/pins" || pathname.startsWith("/pins/") ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
                         All Pins
                     </Link>
+                    <Link data-testid="trading-post" href="/trading-post" onClick={closeSideBar}
+                    className={pathname === "/trading-post" ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
+                        Trading Post
+                    </Link>
                     <Link data-testid="profile" href="/profile" onClick={closeSideBar}
                     className={pathname === "/profile" ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
                         My Profile
