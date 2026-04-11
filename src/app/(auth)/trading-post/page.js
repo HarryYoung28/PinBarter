@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react"
 import SearchBar from "@/components/SearchBar"
 import { useSession } from "next-auth/react"
+import MakeOfferForm from "@/components/MakeOfferForm"
+import toast from "react-hot-toast"
 
 export default function TradingPostPage() {
     const [listings, setListings] = useState([])
@@ -11,6 +13,7 @@ export default function TradingPostPage() {
     const [page, setPage] = useState(1)
     const [total, setTotal] = useState(0)
     const { data: session } = useSession()
+    const [selectedListing, setSelectedListing] = useState(null)
 
     useEffect(() => {
         async function fetchListings() {
@@ -137,7 +140,8 @@ export default function TradingPostPage() {
                                     hover:bg-disney-dark-blue 
                                     hover:text-white 
                                     dark:hover:bg-white 
-                                    dark:hover:text-disney-dark-blue">
+                                    dark:hover:text-disney-dark-blue"
+                                    onClick={() => setSelectedListing(listing)}>
                                     Make an Offer
                                 </button>
                                 )}
@@ -191,6 +195,16 @@ export default function TradingPostPage() {
                         </div>
                     )}
                 </>
+            )}
+            {selectedListing && (
+                <MakeOfferForm
+                    listing={selectedListing}
+                    onClose={() => setSelectedListing(null)}
+                    onSuccess={() => {
+                        setSelectedListing(null)
+                        toast("Offer sent!")
+                    }}
+                />
             )}
         </div>
     )
