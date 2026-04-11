@@ -59,7 +59,8 @@ export default function TradingPostPage() {
                     hover:text-white 
                     dark:hover:bg-white 
                     dark:hover:text-disney-dark-blue 
-                    font-medium">
+                    font-medium
+                    max-w-xs">
                     <option value="newest">Newest First</option>
                     <option value="oldest">Oldest First</option>
                 </select>
