@@ -20,6 +20,22 @@ export async function POST(request) {
     if (existing) {
         return NextResponse.json({ error: "You already have an open listing for this pin!" }, { status: 400 })
     }
+    
+    const pendingOffer = await prisma.trade.findFirst({
+        where: {
+            offererId: user.id,
+            status: "pending",
+            items: {
+                some: {
+                    pinId: pinId,
+                    direction: "incoming"
+                }
+            }
+        }
+    })
+    if (pendingOffer) {
+        return NextResponse.json({ error: "This pin is already offered in a pending trade!" }, { status: 400 })
+    }
 
     const listing = await prisma.tradeListing.create({
         data: {
