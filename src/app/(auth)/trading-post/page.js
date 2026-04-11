@@ -29,7 +29,7 @@ export default function TradingPostPage() {
             <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Trading Post</h1>
             <p className="text-sm text-gray-500 dark:text-gray-300 mb-6">Browse pins available for trade!</p>
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2 mb-2">
                 <div className="flex-1">
                     <SearchBar
                         value={search}
