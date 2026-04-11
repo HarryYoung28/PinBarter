@@ -46,7 +46,7 @@ export default function TradingPostPage() {
                         setSort(e.target.value)
                         setPage(1)
                     }}
-                    className="px-4 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-neutral-800 text-gray-900 dark:text-gray-100">
+                    className="px-4 py-2 text-sm bg-disney-light-blue text-disney-dark-blue rounded-md border-none cursor-pointer hover:bg-disney-dark-blue hover:text-white dark:hover:bg-white dark:hover:text-disney-dark-blue font-medium">
                     <option value="newest">Newest First</option>
                     <option value="oldest">Oldest First</option>
                 </select>
