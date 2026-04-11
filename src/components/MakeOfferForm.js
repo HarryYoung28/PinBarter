@@ -210,7 +210,7 @@ export default function MakeOfferForm({ listing, onClose, onSuccess }) {
                             </button>
                             <button
                                 onClick={handleSubmit}
-                                className="px-3 py-1 text-xs rounded bg-yellow-500 hover:bg-yellow-600 text-gray-700 font-medium">
+                                className="px-3 py-1 text-xs rounded bg-yellow-400 hover:bg-yellow-500 text-stone-950 font-medium">
                                 Yes, send offer anyway
                             </button>
                         </div>
