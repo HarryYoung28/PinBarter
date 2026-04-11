@@ -29,7 +29,7 @@ export default function TradingPostPage() {
             <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Trading Post</h1>
             <p className="text-sm text-gray-500 dark:text-gray-300 mb-6">Browse pins available for trade!</p>
 
-            <div className="flex flex-col md:flex-row gap-4 mb-6">
+            <div className="flex flex-col gap-4 mb-6">
                 <div className="flex-1">
                     <SearchBar
                         value={search}
@@ -46,7 +46,20 @@ export default function TradingPostPage() {
                         setSort(e.target.value)
                         setPage(1)
                     }}
-                    className="px-4 py-2 text-sm bg-disney-light-blue text-disney-dark-blue rounded-md border-none cursor-pointer hover:bg-disney-dark-blue hover:text-white dark:hover:bg-white dark:hover:text-disney-dark-blue font-medium">
+                    className="
+                    px-4 
+                    py-2 
+                    text-sm 
+                    bg-disney-light-blue 
+                    text-disney-dark-blue 
+                    rounded-md 
+                    border-none 
+                    cursor-pointer 
+                    hover:bg-disney-dark-blue 
+                    hover:text-white 
+                    dark:hover:bg-white 
+                    dark:hover:text-disney-dark-blue 
+                    font-medium">
                     <option value="newest">Newest First</option>
                     <option value="oldest">Oldest First</option>
                 </select>
