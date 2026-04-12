@@ -44,6 +44,12 @@ exports[`Ticket 8 AC-6 Snapshot testing Collection page matches snapshot 1`] = `
            
           credits
         </p>
+        <button
+          class="mt-2 w-full px-2 py-1 text-xs bg-disney-light-blue text-disney-dark-blue rounded hover:bg-disney-dark-blue hover:text-white dark:hover:bg-white dark:hover:text-disney-dark-blue"
+          data-testid="trade-button"
+        >
+          Post to Trading Post
+        </button>
       </div>
     </div>
     <div

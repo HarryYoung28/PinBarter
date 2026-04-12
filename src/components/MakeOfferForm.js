@@ -175,7 +175,7 @@ export default function MakeOfferForm({ listing, onClose, onSuccess }) {
 
                         <div className="border-t border-gray-200 dark:border-gray-600 pt-3 mb-4">
                             <p className="text-sm text-gray-600 dark:text-gray-300">
-                                Your offer total: <span className={`font-bold ${meetsMinimum ? 'text-green-500' : 'text-red-500'}`}>{totalCredits} credits</span>
+                                Your offer total: <span data-testid="offer-total" className={`font-bold ${meetsMinimum ? 'text-green-500' : 'text-red-500'}`}>{totalCredits} credits</span>
                             </p>
                             <p className="text-sm text-gray-600 dark:text-gray-300">
                                 Minimum required: <span className="font-medium">{minimumCredits} credits</span>

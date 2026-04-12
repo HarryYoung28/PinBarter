@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Ticket 11 AC-10 Trading Post snapshot Trading Post page matches snapshot 1`] = `
+<div>
+  <div
+    class="p-6"
+  >
+    <h1
+      class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2"
+    >
+      Trading Post
+    </h1>
+    <p
+      class="text-sm text-gray-500 dark:text-gray-300 mb-6"
+    >
+      Browse pins available for trade!
+    </p>
+    <div
+      class="flex flex-col gap-2 mb-2"
+    >
+      <div
+        class="flex-1"
+      >
+        <input
+          class=" w-full border  border-gray-300  rounded-md px-4  py-2 text-sm mb-6  focus:outline-none focus:ring-2 focus:ring-disney-dark-blue bg-white text-gray-900 dark:bg-neutral-800 dark:text-gray-100 dark:focus:ring-disney-light-blue "
+          data-testid="pin-search"
+          placeholder="Search for a pin..."
+          type="text"
+          value=""
+        />
+      </div>
+      <select
+        class=" px-4  py-2  text-sm  bg-disney-light-blue  text-disney-dark-blue  rounded-md  border-none  cursor-pointer  hover:bg-disney-dark-blue  hover:text-white  dark:hover:bg-white  dark:hover:text-disney-dark-blue  font-medium max-w-xs"
+        data-testid="sort-select"
+      >
+        <option
+          value="newest"
+        >
+          Newest First
+        </option>
+        <option
+          value="oldest"
+        >
+          Oldest First
+        </option>
+      </select>
+    </div>
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+    >
+      <div
+        class=" bg-white  dark:bg-neutral-800  border  border-gray-500  dark:border-gray-200  rounded-lg  p-4  flex  flex-col  gap-2"
+        data-testid="trade-listing-card"
+      >
+        <div
+          class="flex gap-4"
+        >
+          <img
+            alt="Kermit the Frog"
+            class="w-20 h-20 object-cover rounded-md"
+            src="https://placehold.co/80x80?text=Kermit%20the%20Frog"
+          />
+          <div
+            class="flex flex-col gap-1"
+          >
+            <p
+              class="text-sm font-bold text-gray-900 dark:text-gray-100"
+            >
+              Kermit the Frog
+            </p>
+            <p
+              class="text-xs text-gray-500 dark:text-gray-300"
+            >
+              Muppets Christmas Carol
+            </p>
+            <p
+              class="text-xs text-disney-dark-blue dark:text-disney-light-blue font-medium"
+            >
+              3
+               
+              credits
+            </p>
+            <p
+              class="text-xs text-gray-500 dark:text-gray-300"
+            >
+              Posted by 
+              <span
+                class="font-medium"
+              >
+                otheruser
+              </span>
+            </p>
+          </div>
+        </div>
+        <div
+          class="border-t border-gray-200 dark:border-gray-600 pt-2"
+        >
+          <p
+            class="text-xs text-gray-600 dark:text-gray-300"
+          >
+            <span
+              class="font-medium"
+            >
+              Looking for:
+            </span>
+             
+            Any Goofy pins
+          </p>
+          <p
+            class="text-xs text-gray-600 dark:text-gray-300 mt-1"
+          >
+            <span
+              class="font-medium"
+            >
+              Minimum offer:
+            </span>
+             
+            2 credits
+          </p>
+        </div>
+        <button
+          class=" mt-auto  w-full  px-4  py-2  text-sm  bg-disney-light-blue  text-disney-dark-blue  rounded  hover:bg-disney-dark-blue  hover:text-white  dark:hover:bg-white  dark:hover:text-disney-dark-blue"
+          data-testid="make-offer-button"
+        >
+          Make an Offer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -111,6 +111,13 @@ exports[`Ticket 2 AC-8 SideBar.js snapshot testing matches snapshot 1`] = `
         All Pins
       </a>
       <a
+        class="block px-6 py-3 text-gray-700 hover:bg-white dark:hover:bg-neutral-800 dark:hover:text-disney-light-blue hover:text-disney-dark-blue"
+        data-testid="trading-post"
+        href="/trading-post"
+      >
+        Trading Post
+      </a>
+      <a
         class="block px-6 py-3 text-disney-dark-blue bg-white font-semibold dark:text-disney-light-blue dark:bg-neutral-800"
         data-testid="profile"
         href="/profile"
