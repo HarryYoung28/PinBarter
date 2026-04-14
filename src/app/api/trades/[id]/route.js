@@ -5,6 +5,7 @@ import prisma from "@/lib/prisma"
 
 // ACCEPT AN OFFER
 export async function POST(request, { params }) {
+    const { id } = await params
     const session = await getServerSession(authOptions)
     if (!session) {
         return NextResponse.json({ error: "Not authenticated" }, { status: 401 })
@@ -14,7 +15,7 @@ export async function POST(request, { params }) {
     })
     const { action } = await request.json()
     const trade = await prisma.trade.findUnique({
-        where: { id: params.id },
+        where: { id },
         include: { listing: true, items: true }
     })
     if (!trade) {

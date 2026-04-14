@@ -144,7 +144,9 @@ export default function MyTradesPage() {
                                         className="
                                         text-xs 
                                         text-red-500 
-                                        hover:text-red-700 
+                                        hover:text-red-600 
+                                        dark:hover:text-red-500
+                                        dark:text-red-600
                                         hover:underline">
                                         Remove Listing
                                     </button>
@@ -225,9 +227,11 @@ export default function MyTradesPage() {
                                             py-1 
                                             text-xs 
                                             bg-red-500 
+                                            dark:bg-red-600
                                             text-white 
                                             rounded 
-                                            hover:bg-red-600">
+                                            hover:bg-red-600
+                                            dark:hover:bg-red-500">
                                             Decline
                                         </button>
                                     </div>
@@ -288,10 +292,12 @@ export default function MyTradesPage() {
                                     px-3 
                                     py-1 
                                     text-xs 
-                                    bg-red-500 
+                                    bg-red-600 
+                                    dark:bg-red-500
                                     text-white 
                                     rounded 
-                                    hover:bg-red-600">
+                                    hover:bg-red-500
+                                    dark:hover:bg-red-600">
                                     Withdraw Offer
                                 </button>
                             </div>
@@ -314,7 +320,14 @@ export default function MyTradesPage() {
                     text-gray-500 
                     dark:text-gray-300 
                     mb-3">
-                        Need to arrange a meetup? Visit <a href="https://reddit.com/r/PinBarter" target="_blank" className="text-disney-dark-blue dark:text-disney-light-blue hover:underline">r/PinBarter</a>
+                        Need to arrange a meetup? Visit <a 
+                        href="https://reddit.com/r/PinBarter" 
+                        rel="noopener noreferrer" 
+                        target="_blank" 
+                        className="
+                        text-disney-dark-blue 
+                        dark:text-disney-light-blue 
+                        hover:underline">r/PinBarter</a>
                     </p>
                     <div className="flex flex-col gap-4">
                         {pendingTrades.map(trade => (
@@ -425,6 +438,7 @@ export default function MyTradesPage() {
                     dark:text-gray-300 
                     mb-3">
                         Need to arrange another meetup? Visit 
+                        {/* <a> tag instead of <Link> for external links as it can't prefetch anyway */}
                         <a 
                         href="https://reddit.com/r/PinBarter" 
                         target="_blank" 
