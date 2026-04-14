@@ -1,10 +1,12 @@
 'use client'
 import { useState, useEffect } from "react"
 import { useSession } from "next-auth/react"
+import { usePathname } from "next/navigation"
 
 export default function TradeNotification() {
     const [hasActivity, setHasActivity] = useState(false)
     const { data: session } = useSession()
+    const pathname = usePathname()
 
     useEffect(() => {
         async function checkActivity() {
@@ -20,7 +22,7 @@ export default function TradeNotification() {
             setHasActivity(offersReceived + pendingConfirmation > 0)
         }
         if (session) checkActivity()
-    }, [session])
+    }, [session, pathname])
 
     if (!hasActivity) return null
 
