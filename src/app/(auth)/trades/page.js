@@ -29,8 +29,8 @@ export default function MyTradesPage() {
 
     async function handleDeleteListing(listingId) {
         await fetch(`/api/trade-listings/${listingId}`, { method: 'DELETE' })
-        toast("Listing removed!")
         fetchTrades()
+        toast("Listing removed!")
     }
 
     async function handleTradeAction(tradeId, action) {

@@ -15,6 +15,7 @@ export async function GET() {
     const myListings = await prisma.tradeListing.findMany({
         where: { userId: user.id, status: "open" },
         include: { pin: true, trades: {
+            where: { status: "pending" },
             include: {
                 offerer: { select: { username: true } },
                 items: { include: { pin: true } }
