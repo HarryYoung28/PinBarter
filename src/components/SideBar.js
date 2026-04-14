@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react"
+import TradeNotification from "./TradeNotification";
 
 export default function SideBar() {
 
@@ -120,7 +121,7 @@ export default function SideBar() {
                     </Link>
                     <Link data-testid="trades" href="/trades" onClick={closeSideBar}
                     className={pathname === "/trades" ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
-                        My Trades
+                        My Trades <TradeNotification />
                     </Link>
                     <Link data-testid="wishlist" href="/wishlist" onClick={closeSideBar}
                     className={pathname === "/wishlist" ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
