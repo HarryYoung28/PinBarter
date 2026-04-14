@@ -106,7 +106,7 @@ export async function POST(request, { params }) {
                 data: { status: "completed" }
             })
         }
-        return NextResponse.json({ message: "Completion confirmed" })
+        return NextResponse.json({ message: updatedTrade.offererConfirmed && updatedTrade.receiverConfirmed ? "Trade completed!" : "Completion confirmed" })
     }
 
     return NextResponse.json({ error: "Invalid action" }, { status: 400 })

@@ -46,7 +46,7 @@ export default function MyTradesPage() {
             if (action === "accept") toast("Offer accepted! Visit r/PinBarter to organise your meetup!")
             if (action === "decline") toast("Offer declined.")
             if (action === "withdraw") toast("Offer withdrawn — your pins are now free!")
-            if (action === "complete") toast(data.message === "Completion confirmed" ? "Marked as complete! Waiting for the other user..." : "Trade completed! Pins have been swapped!")
+            if (action === "complete") toast(data.message === "Trade completed!" ? "Trade completed! Pins have been swapped!" : "Marked as complete! Waiting for the other user...")
             fetchTrades()
         } else {
             toast(data.error || "Something went wrong!")
@@ -433,7 +433,9 @@ export default function MyTradesPage() {
                                         dark:hover:text-disney-dark-blue
                                         disabled:opacity-50
                                         disabled:cursor-not-allowed">
-                                        Mark as Complete
+                                        {trade.offerer.username === session?.user?.username 
+                                            ? trade.offererConfirmed ? "Marked as Complete" : "Mark as Complete"
+                                            : trade.receiverConfirmed ? "Marked as Complete" : "Mark as Complete"}
                                     </button>
                                 )}
                             </div>
