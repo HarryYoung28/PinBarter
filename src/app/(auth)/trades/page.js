@@ -419,7 +419,7 @@ export default function MyTradesPage() {
                                     <button
                                         data-testid="mark-complete-button"
                                         onClick={() => setConfirmingTradeId(trade.id)}
-                                        disabled={trade.offererId === session?.user?.id ? trade.offererConfirmed : trade.receiverConfirmed}
+                                        disabled={trade.offerer.username === session?.user?.username ? trade.offererConfirmed : trade.receiverConfirmed}
                                         className="
                                         px-3 
                                         py-1 
