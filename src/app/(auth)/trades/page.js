@@ -31,7 +31,7 @@ export default function MyTradesPage() {
 
     async function handleDeleteListing(listingId) {
         await fetch(`/api/trade-listings/${listingId}`, { method: 'DELETE' })
-        fetchTrades()
+        await fetchTrades()
         toast("Listing removed!")
     }
 
@@ -474,7 +474,7 @@ export default function MyTradesPage() {
                                 text-gray-900 
                                 dark:text-gray-100">{trade.listing.pin.name}</p>
                                 <p className="text-xs text-gray-500 dark:text-gray-300">
-                                    Between 
+                                    Between: 
                                     <span 
                                     className="font-medium">
                                         {trade.offerer.username}</span> and <span className="font-medium">{trade.receiver.username}    

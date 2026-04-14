@@ -4,6 +4,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import prisma from "@/lib/prisma"
 
 export async function DELETE(request, { params }) {
+    const { id } = await params
     const session = await getServerSession(authOptions)
     if (!session) {
         return NextResponse.json({ error: "Not authenticated" }, { status: 401 })
@@ -12,7 +13,7 @@ export async function DELETE(request, { params }) {
         where: { username: session.user.username }
     })
     const listing = await prisma.tradeListing.findUnique({
-        where: { id: params.id }
+        where: { id }
     })
     if (!listing) {
         return NextResponse.json({ error: "Listing not found" }, { status: 404 })
@@ -21,7 +22,7 @@ export async function DELETE(request, { params }) {
         return NextResponse.json({ error: "Not authorised" }, { status: 403 })
     }
     await prisma.tradeListing.delete({
-        where: { id: params.id }
+        where: { id }
     })
     return NextResponse.json({ message: "Listing deleted" })
 }
