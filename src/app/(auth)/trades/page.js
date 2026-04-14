@@ -13,6 +13,7 @@ export default function MyTradesPage() {
     const [confirmingTradeId, setConfirmingTradeId] = useState(null)
     const router = useRouter()
     const { data: session } = useSession()
+    const [hiddenOffers, setHiddenOffers] = useState([])
 
     async function fetchTrades() {
         setLoading(true)
@@ -287,9 +288,16 @@ export default function MyTradesPage() {
                                         <p key={item.id} className="text-xs text-gray-600 dark:text-gray-400">— {item.pin.name} ({item.pin.credits} {item.pin.credits === 1 ? "credit" : "credits"})</p>
                                     ))}
                                 </div>
-                                {trade.status === "declined" ? (
-                                    <p className="text-xs text-red-500 font-medium">✕ Offer declined</p>
-                                ) : (
+                                {trade.status === "declined" && !hiddenOffers.includes(trade.id) ? (
+                                    <div className="flex items-center gap-3">
+                                        <p className="text-xs text-red-500 font-medium">✕ Offer declined</p>
+                                        <button
+                                            onClick={() => setHiddenOffers([...hiddenOffers, trade.id])}
+                                            className="text-xs text-gray-500 dark:text-gray-400 hover:underline">
+                                            Hide
+                                        </button>
+                                    </div>
+                                ) : trade.status !== "declined" ? (
                                     <button
                                         data-testid="withdraw-offer-button"
                                         onClick={() => handleTradeAction(trade.id, "withdraw")}
@@ -305,7 +313,7 @@ export default function MyTradesPage() {
                                         dark:hover:bg-red-500">
                                         Withdraw Offer
                                     </button>
-                                )}
+                                ) : null}
                             </div>
                         ))}
                     </div>
