@@ -3,6 +3,62 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import prisma from "@/lib/prisma"
 
+export async function GET() {
+    const session = await getServerSession(authOptions)
+    if (!session) {
+        return NextResponse.json({ error: "Not authenticated" }, { status: 401 })
+    }
+    const user = await prisma.user.findUnique({
+        where: { username: session.user.username }
+    })
+
+    const myListings = await prisma.tradeListing.findMany({
+        where: { userId: user.id, status: "open" },
+        include: { pin: true, trades: {
+            include: {
+                offerer: { select: { username: true } },
+                items: { include: { pin: true } }
+            }
+        }}
+    })
+
+    const pendingTrades = await prisma.trade.findMany({
+        where: {
+            OR: [{ offererId: user.id }, { receiverId: user.id }],
+            status: "accepted"
+        },
+        include: {
+            listing: { include: { pin: true } },
+            offerer: { select: { username: true } },
+            receiver: { select: { username: true } },
+            items: { include: { pin: true } }
+        }
+    })
+
+    const completedTrades = await prisma.trade.findMany({
+        where: {
+            OR: [{ offererId: user.id }, { receiverId: user.id }],
+            status: "completed"
+        },
+        include: {
+            listing: { include: { pin: true } },
+            offerer: { select: { username: true } },
+            receiver: { select: { username: true } },
+            items: { include: { pin: true } }
+        }
+    })
+
+    const myOffers = await prisma.trade.findMany({
+        where: { offererId: user.id, status: "pending" },
+        include: {
+            listing: { include: { pin: true, user: { select: { username: true } } } },
+            items: { include: { pin: true } }
+        }
+    })
+
+    return NextResponse.json({ myListings, pendingTrades, completedTrades, myOffers })
+}
+
 export async function POST(request) {
     const session = await getServerSession(authOptions)
     if (!session) {
