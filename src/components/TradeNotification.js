@@ -9,17 +9,15 @@ export default function TradeNotification() {
     const pathname = usePathname()
 
     useEffect(() => {
+        if (pathname === '/trades') {
+            setHasActivity(false)
+            return
+        }
         async function checkActivity() {
             const response = await fetch('/api/trades')
             const data = await response.json()
-
             const offersReceived = data.myListings.flatMap(l => l.trades).length
-
-            const pendingConfirmation = data.pendingTrades.filter(trade => 
-                !trade.offererConfirmed || !trade.receiverConfirmed
-            ).length
-
-            setHasActivity(offersReceived + pendingConfirmation > 0)
+            setHasActivity(offersReceived > 0)
         }
         if (session) checkActivity()
     }, [session, pathname])
