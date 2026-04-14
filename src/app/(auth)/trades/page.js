@@ -258,8 +258,8 @@ export default function MyTradesPage() {
                     flex 
                     flex-col 
                     gap-4">
-                        {myOffers.map(trade => (
-                            <div key={trade.id} 
+                        {myOffers.filter(trade => !hiddenOffers.includes(trade.id)).map(trade => (
+                            <div key={trade.id}
                             data-testid="my-offer-card" 
                             className="
                             bg-white 
