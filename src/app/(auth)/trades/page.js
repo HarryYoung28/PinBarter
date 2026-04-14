@@ -292,12 +292,12 @@ export default function MyTradesPage() {
                                     px-3 
                                     py-1 
                                     text-xs 
-                                    bg-red-600 
-                                    dark:bg-red-500
+                                    bg-red-500 
+                                    dark:bg-red-600
                                     text-white 
                                     rounded 
-                                    hover:bg-red-500
-                                    dark:hover:bg-red-600">
+                                    hover:bg-red-600
+                                    dark:hover:bg-red-500">
                                     Withdraw Offer
                                 </button>
                             </div>
@@ -351,7 +351,7 @@ export default function MyTradesPage() {
                                 text-gray-500 
                                 dark:text-gray-300 
                                 mb-2">
-                                    Between <span className="font-medium">{trade.offerer.username}</span> and <span className="font-medium">{trade.receiver.username}</span>
+                                    Between: <span className="font-medium"> {trade.offerer.username}</span> and <span className="font-medium">{trade.receiver.username}</span>
                                 </p>
                                 <div className="mb-3">
                                     <p className="
@@ -440,9 +440,9 @@ export default function MyTradesPage() {
                     text-gray-500 
                     dark:text-gray-300 
                     mb-3">
-                        Need to arrange another meetup? Visit 
-                        {/* <a> tag instead of <Link> for external links as it can't prefetch anyway */}
+                        Need to arrange another meetup? Visit: 
                         <a 
+                        // <a> tag instead of <Link> for external links as it can't prefetch anyway
                         href="https://reddit.com/r/PinBarter" 
                         target="_blank" 
                         className="
