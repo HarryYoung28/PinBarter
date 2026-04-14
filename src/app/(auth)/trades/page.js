@@ -381,7 +381,9 @@ export default function MyTradesPage() {
                                             text-xs 
                                             bg-green-500 
                                             text-white 
-                                            rounded hover:bg-green-600">
+                                            rounded hover:bg-green-600
+                                            dark:bg-green-600
+                                            dark:hover:bg-green-500">
                                             Yes, confirm
                                         </button>
                                         <button
@@ -394,6 +396,7 @@ export default function MyTradesPage() {
                                             dark:bg-neutral-600 
                                             text-gray-700 
                                             dark:text-gray-200 
+                                            dark:hover:text-gray-700
                                             rounded 
                                             hover:bg-gray-300">
                                             Cancel
