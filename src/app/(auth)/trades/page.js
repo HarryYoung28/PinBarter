@@ -287,21 +287,25 @@ export default function MyTradesPage() {
                                         <p key={item.id} className="text-xs text-gray-600 dark:text-gray-400">— {item.pin.name} ({item.pin.credits} {item.pin.credits === 1 ? "credit" : "credits"})</p>
                                     ))}
                                 </div>
-                                <button
-                                    data-testid="withdraw-offer-button"
-                                    onClick={() => handleTradeAction(trade.id, "withdraw")}
-                                    className="
-                                    px-3 
-                                    py-1 
-                                    text-xs 
-                                    bg-red-500 
-                                    dark:bg-red-600
-                                    text-white 
-                                    rounded 
-                                    hover:bg-red-600
-                                    dark:hover:bg-red-500">
-                                    Withdraw Offer
-                                </button>
+                                {trade.status === "declined" ? (
+                                    <p className="text-xs text-red-500 font-medium">✕ Offer declined</p>
+                                ) : (
+                                    <button
+                                        data-testid="withdraw-offer-button"
+                                        onClick={() => handleTradeAction(trade.id, "withdraw")}
+                                        className="
+                                        px-3 
+                                        py-1 
+                                        text-xs 
+                                        bg-red-500 
+                                        dark:bg-red-600
+                                        text-white 
+                                        rounded 
+                                        hover:bg-red-600
+                                        dark:hover:bg-red-500">
+                                        Withdraw Offer
+                                    </button>
+                                )}
                             </div>
                         ))}
                     </div>

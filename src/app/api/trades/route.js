@@ -50,7 +50,7 @@ export async function GET() {
     })
 
     const myOffers = await prisma.trade.findMany({
-        where: { offererId: user.id, status: "pending" },
+        where: { offererId: user.id, status: { in: ["pending", "declined"] } },
         include: {
             listing: { include: { pin: true, user: { select: { username: true } } } },
             items: { include: { pin: true } }
