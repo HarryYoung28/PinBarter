@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
+import { useSession } from "next-auth/react"
 
 export default function MyTradesPage() {
     const [myListings, setMyListings] = useState([])
@@ -11,6 +12,7 @@ export default function MyTradesPage() {
     const [loading, setLoading] = useState(true)
     const [confirmingTradeId, setConfirmingTradeId] = useState(null)
     const router = useRouter()
+    const { data: session } = useSession()
 
     async function fetchTrades() {
         setLoading(true)
@@ -406,6 +408,7 @@ export default function MyTradesPage() {
                                     <button
                                         data-testid="mark-complete-button"
                                         onClick={() => setConfirmingTradeId(trade.id)}
+                                        disabled={trade.offererId === session?.user?.id ? trade.offererConfirmed : trade.receiverConfirmed}
                                         className="
                                         px-3 
                                         py-1 
@@ -416,7 +419,9 @@ export default function MyTradesPage() {
                                         hover:bg-disney-dark-blue 
                                         hover:text-white 
                                         dark:hover:bg-white 
-                                        dark:hover:text-disney-dark-blue">
+                                        dark:hover:text-disney-dark-blue
+                                        disabled:opacity-50
+                                        disabled:cursor-not-allowed">
                                         Mark as Complete
                                     </button>
                                 )}

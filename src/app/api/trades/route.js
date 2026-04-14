@@ -85,8 +85,9 @@ export async function POST(request) {
         return NextResponse.json({ error: "This listing is no longer available" }, { status: 400 })
     }
 
+    // pending is important otherwise cancelled trades will block future trades!
     const existingOffer = await prisma.trade.findFirst({
-        where: { listingId, offererId: user.id }
+        where: { listingId, offererId: user.id, status: "pending" }
     })
     if (existingOffer) {
         return NextResponse.json({ error: "You have already made an offer on this listing!" }, { status: 400 })
