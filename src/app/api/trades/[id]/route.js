@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import prisma from "@/lib/prisma"
 
-// ACCEPT AN OFFER
+// Offer logic
 export async function POST(request, { params }) {
     const { id } = await params
     const session = await getServerSession(authOptions)
@@ -60,6 +60,19 @@ export async function POST(request, { params }) {
             data: { status: "withdrawn" }
         })
         return NextResponse.json({ message: "Offer withdrawn" })
+    }
+
+    if (action === "dismiss") {
+        if (trade.offererId !== user.id) {
+            return NextResponse.json({ error: "Not authorised" }, { status: 403 })
+        }
+        await prisma.tradeItem.deleteMany({
+            where: { tradeId: trade.id }
+        })
+        await prisma.trade.delete({
+            where: { id: trade.id }
+        })
+        return NextResponse.json({ message: "Offer dismissed" })
     }
 
     if (action === "complete") {

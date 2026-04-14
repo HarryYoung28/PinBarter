@@ -13,7 +13,6 @@ export default function MyTradesPage() {
     const [confirmingTradeId, setConfirmingTradeId] = useState(null)
     const router = useRouter()
     const { data: session } = useSession()
-    const [hiddenOffers, setHiddenOffers] = useState([])
 
     async function fetchTrades() {
         setLoading(true)
@@ -258,7 +257,7 @@ export default function MyTradesPage() {
                     flex 
                     flex-col 
                     gap-4">
-                        {myOffers.filter(trade => !hiddenOffers.includes(trade.id)).map(trade => (
+                        {myOffers.map(trade => (
                             <div key={trade.id}
                             data-testid="my-offer-card" 
                             className="
@@ -288,11 +287,11 @@ export default function MyTradesPage() {
                                         <p key={item.id} className="text-xs text-gray-600 dark:text-gray-400">— {item.pin.name} ({item.pin.credits} {item.pin.credits === 1 ? "credit" : "credits"})</p>
                                     ))}
                                 </div>
-                                {trade.status === "declined" && !hiddenOffers.includes(trade.id) ? (
+                                {trade.status === "declined" ? (
                                     <div className="flex items-center gap-3">
                                         <p className="text-xs text-red-500 font-medium">✕ Offer declined</p>
                                         <button
-                                            onClick={() => setHiddenOffers([...hiddenOffers, trade.id])}
+                                            onClick={() => handleTradeAction(trade.id, "dismiss")}
                                             className="text-xs text-gray-500 dark:text-gray-400 hover:underline">
                                             Hide
                                         </button>
