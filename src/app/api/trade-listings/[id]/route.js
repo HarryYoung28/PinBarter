@@ -21,6 +21,17 @@ export async function DELETE(request, { params }) {
     if (listing.userId !== user.id) {
         return NextResponse.json({ error: "Not authorised" }, { status: 403 })
     }
+    const trades = await prisma.trade.findMany({
+        where: { listingId: id }
+    })
+    for (const trade of trades) {
+        await prisma.tradeItem.deleteMany({
+            where: { tradeId: trade.id }
+        })
+    }
+    await prisma.trade.deleteMany({
+        where: { listingId: id }
+    })
     await prisma.tradeListing.delete({
         where: { id }
     })

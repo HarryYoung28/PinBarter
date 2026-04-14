@@ -353,7 +353,7 @@ export default function MyTradesPage() {
                                 text-gray-500 
                                 dark:text-gray-300 
                                 mb-2">
-                                    Between: <span className="font-medium"> {trade.offerer.username}</span> and <span className="font-medium">{trade.receiver.username}</span>
+                                    Between:{" "} <span className="font-medium"> {trade.offerer.username}</span> and <span className="font-medium">{trade.receiver.username}</span>
                                 </p>
                                 <div className="mb-3">
                                     <p className="
@@ -474,7 +474,7 @@ export default function MyTradesPage() {
                                 text-gray-900 
                                 dark:text-gray-100">{trade.listing.pin.name}</p>
                                 <p className="text-xs text-gray-500 dark:text-gray-300">
-                                    Between: 
+                                    Between:{" "}
                                     <span 
                                     className="font-medium">
                                         {trade.offerer.username}</span> and <span className="font-medium">{trade.receiver.username}    
