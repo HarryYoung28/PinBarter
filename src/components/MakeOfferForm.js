@@ -113,7 +113,12 @@ export default function MakeOfferForm({ listing, onClose, onSuccess }) {
                 </p>
 
                 {loading && (
-                    <p className="text-sm text-gray-500 dark:text-gray-300 text-center py-4">Loading your collection...</p>
+                    <p className="
+                    text-sm 
+                    text-gray-500 
+                    dark:text-gray-300 
+                    text-center 
+                    py-4">Loading your collection...</p>
                 )}
 
                 {!loading && collection.length === 0 && (
