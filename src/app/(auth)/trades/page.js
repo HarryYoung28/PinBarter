@@ -138,7 +138,7 @@ export default function MyTradesPage() {
                                         <p className="
                                         text-xs 
                                         text-gray-500 
-                                        dark:text-gray-300">Offers received: {listing.trades.length}</p>
+                                        dark:text-gray-300">Current offers: {listing.trades.length}</p>
                                     </div>
                                     <button
                                         data-testid="delete-listing-button"
@@ -289,7 +289,7 @@ export default function MyTradesPage() {
                                 </div>
                                 {trade.status === "declined" ? (
                                     <div className="flex items-center gap-3">
-                                        <p className="text-xs text-red-500 font-medium">✕ Offer declined</p>
+                                        <p className="text-xs text-red-500 font-medium">Offer declined</p>
                                         <button
                                             onClick={() => handleTradeAction(trade.id, "dismiss")}
                                             className="text-xs text-gray-500 dark:text-gray-400 hover:underline">
@@ -333,7 +333,7 @@ export default function MyTradesPage() {
                     text-gray-500 
                     dark:text-gray-300 
                     mb-3">
-                        Need to arrange a meetup? Visit <a 
+                        Need to arrange a meetup? Visit{" "}<a 
                         href="https://reddit.com/r/PinBarter" 
                         rel="noopener noreferrer" 
                         target="_blank" 
@@ -458,7 +458,7 @@ export default function MyTradesPage() {
                     text-gray-500 
                     dark:text-gray-300 
                     mb-3">
-                        Need to arrange another meetup? Visit: 
+                        Need to arrange another meetup? Visit:{" "}
                         <a 
                         // <a> tag instead of <Link> for external links as it can't prefetch anyway
                         href="https://reddit.com/r/PinBarter" 
@@ -497,7 +497,7 @@ export default function MyTradesPage() {
                                 text-xs 
                                 text-green-500 
                                 font-medium 
-                                mt-1">✓ Completed</p>
+                                mt-1">Completed</p>
                             </div>
                         ))}
                     </div>

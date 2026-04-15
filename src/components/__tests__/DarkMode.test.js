@@ -21,11 +21,16 @@ jest.mock("next-auth/react", () => ({
 }))
 
 // Mock fetch for PinsPage
-global.fetch = jest.fn(() =>
-    Promise.resolve({
+global.fetch = jest.fn((url) => {
+    if (url && url.includes('/api/trades')) {
+        return Promise.resolve({
+            json: () => Promise.resolve({ myListings: [], myOffers: [], pendingTrades: [], completedTrades: [] })
+        })
+    }
+    return Promise.resolve({
         json: () => Promise.resolve({ pins: [], total: 0 })
     })
-)
+})
 
 beforeEach(() => {
     jest.clearAllMocks()

@@ -411,7 +411,7 @@ exports[`Ticket 9 Snapshot Tests SideBar matches snapshot with dark mode classes
         data-testid="trades"
         href="/trades"
       >
-        My Trades
+        My Trades 
       </a>
       <a
         class="block px-6 py-3 text-gray-700 hover:bg-white dark:hover:bg-neutral-800 dark:hover:text-disney-light-blue hover:text-disney-dark-blue"

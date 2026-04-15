@@ -25,6 +25,6 @@ export default function TradeNotification() {
     if (!hasActivity) return null
 
     return (
-        <span className="ml-2 inline-block w-2 h-2 rounded-full bg-red-500"></span>
+        <span data-testid="trade-notification-dot" className="ml-2 inline-block w-2 h-2 rounded-full bg-red-500"></span>
     )
 }
