@@ -98,7 +98,7 @@ export default function SideBar() {
                     </Link>
                 </div>
                 {/* div for LINKS to pages */}
-                <div className="flex-1 flex flex-col">
+                <div className="flex-1 flex flex-col pt-2 md:pt-0">
                     <Link data-testid="home" href="/home" onClick={closeSideBar}
                     className={pathname === "/home" ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
                         Home
