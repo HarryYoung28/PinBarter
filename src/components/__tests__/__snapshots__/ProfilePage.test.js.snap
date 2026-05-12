@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Ticket 14 AC-8 Snapshot testing Profile page matches snapshot 1`] = `
+<div>
+  <div
+    class="p-6 max-w-xl"
+  >
+    <h1
+      class=" text-2xl  font-bold  text-gray-900  dark:text-gray-100  mb-2"
+    >
+      My Profile
+    </h1>
+    <p
+      class=" text-sm  text-gray-500  dark:text-gray-300  mb-8"
+    >
+      Manage your account settings.
+    </p>
+    <div
+      class=" bg-white  dark:bg-neutral-800  border  border-gray-500  dark:border-gray-200  rounded-lg  p-6  mb-6"
+    >
+      <h2
+        class=" text-lg  font-semibold  text-gray-700  dark:text-gray-300  mb-4"
+      >
+        Account Info
+      </h2>
+      <div
+        class="flex flex-col gap-3"
+      >
+        <div>
+          <p
+            class=" text-xs  text-gray-500  dark:text-gray-400  uppercase  tracking-wide  mb-1"
+          >
+            Username
+          </p>
+          <p
+            class=" text-sm  font-medium  text-gray-900  dark:text-gray-100"
+          >
+            testuser
+          </p>
+        </div>
+        <div>
+          <p
+            class=" text-xs  text-gray-500  dark:text-gray-400  uppercase  tracking-wide  mb-1"
+          >
+            Email
+          </p>
+          <p
+            class=" text-sm  font-medium  text-gray-900  dark:text-gray-100"
+          >
+            testuser@pinbarter.org
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class=" bg-white  dark:bg-neutral-800  border  border-gray-500  dark:border-gray-200  rounded-lg  p-6  mb-6"
+    >
+      <h2
+        class=" text-lg  font-semibold  text-gray-700  dark:text-gray-300  mb-4"
+      >
+        Change Password
+      </h2>
+      <div
+        class="flex flex-col gap-3"
+      >
+        <input
+          class=" w-full  px-3  py-2  text-sm  border  border-gray-300  dark:border-gray-600  rounded-md  bg-white  dark:bg-neutral-700  text-gray-900  dark:text-gray-100"
+          data-testid="current-password"
+          placeholder="Current password"
+          type="password"
+          value=""
+        />
+        <input
+          class=" w-full  px-3  py-2  text-sm  border  border-gray-300  dark:border-gray-600  rounded-md  bg-white  dark:bg-neutral-700  text-gray-900  dark:text-gray-100"
+          data-testid="new-password"
+          placeholder="New password"
+          type="password"
+          value=""
+        />
+        <input
+          class=" w-full  px-3  py-2  text-sm  border  border-gray-300  dark:border-gray-600  rounded-md  bg-white  dark:bg-neutral-700  text-gray-900  dark:text-gray-100"
+          data-testid="confirm-password"
+          placeholder="Confirm new password"
+          type="password"
+          value=""
+        />
+        <button
+          class=" mt-2  px-4  py-2  text-sm  font-medium  bg-disney-light-blue  text-disney-dark-blue  rounded  hover:bg-disney-dark-blue  hover:text-white  dark:hover:bg-white  dark:hover:text-disney-dark-blue disabled:opacity-50  disabled:cursor-not-allowed"
+          data-testid="change-password-button"
+          type="button"
+        >
+          Update Password
+        </button>
+      </div>
+    </div>
+    <div
+      class=" bg-white  dark:bg-neutral-800  border  border-red-400  rounded-lg  p-6"
+    >
+      <h2
+        class=" text-lg  font-semibold  text-red-500  mb-2"
+      >
+        Danger Zone
+      </h2>
+      <p
+        class=" text-sm  text-gray-500  dark:text-gray-400  mb-4"
+      >
+        Deleting your account is permanent and cannot be undone.
+      </p>
+      <button
+        class=" px-4  py-2  text-sm  font-medium  bg-red-500  hover:bg-red-600  text-white  rounded"
+        data-testid="delete-account-button"
+        type="button"
+      >
+        Delete Account
+      </button>
+    </div>
+  </div>
+</div>
+`;

@@ -2,7 +2,7 @@
 import { useState } from "react"
 import { useSession, signOut } from "next-auth/react"
 
-export default function ProfilePage() {
+export default function Profile() {
 
     // get the current logged in user's session data
     const { data: session } = useSession()
