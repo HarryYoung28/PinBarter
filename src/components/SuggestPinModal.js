@@ -77,7 +77,7 @@ export default function SuggestPinModal({ onClose, onSuccess }) {
                     Submit a pin to be reviewed by our team. It will appear in the catalogue once approved.
                 </p>
 
-                {/* pin name - required */}
+                {/* pin name (required) */}
                 <label className="
                     block
                     text-sm
@@ -108,7 +108,7 @@ export default function SuggestPinModal({ onClose, onSuccess }) {
                         mb-4"
                 />
 
-                {/* series - optional */}
+                {/* series (optional) */}
                 <label className="
                     block
                     text-sm
@@ -139,7 +139,7 @@ export default function SuggestPinModal({ onClose, onSuccess }) {
                         mb-4"
                 />
 
-                {/* description - optional */}
+                {/* description (optional) */}
                 <label className="
                     block
                     text-sm
@@ -170,7 +170,7 @@ export default function SuggestPinModal({ onClose, onSuccess }) {
                         mb-4"
                 />
 
-                {/* rarity dropdown - required */}
+                {/* rarity dropdown (optional defaults to not rare)*/}
                 <label className="
                     block
                     text-sm
@@ -178,7 +178,7 @@ export default function SuggestPinModal({ onClose, onSuccess }) {
                     text-gray-700
                     dark:text-gray-300
                     mb-1">
-                    Rarity *
+                    Rarity
                 </label>
                 <select
                     data-testid="pin-rarity"
@@ -216,7 +216,7 @@ export default function SuggestPinModal({ onClose, onSuccess }) {
                             text-gray-700
                             dark:text-gray-300
                             mb-1">
-                            Edition Size
+                            Edition Size (if known)
                         </label>
                         <input
                             data-testid="pin-edition-size"
