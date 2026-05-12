@@ -6,7 +6,7 @@ import PinsPage from '@/app/(auth)/pins/page'
 import PinCard from '../PinCard'
 import SideBar from '../SideBar'
 
-// Mock next navigation
+// mock next navigation
 const mockPush = jest.fn()
 jest.mock("next/navigation", () => ({
     useRouter: () => ({ push: mockPush }),
@@ -14,13 +14,13 @@ jest.mock("next/navigation", () => ({
     useParams: () => ({})
 }))
 
-// Mock next auth
+// mock next auth
 jest.mock("next-auth/react", () => ({
     useSession: () => ({ data: { user: { username: 'testuser' } } }),
     signOut: jest.fn()
 }))
 
-// Mock fetch for PinsPage
+// mock fetch for PinsPage - returns empty pins by default
 global.fetch = jest.fn((url) => {
     if (url && url.includes('/api/trades')) {
         return Promise.resolve({
@@ -70,7 +70,6 @@ describe("Ticket 9 AC-2 Login page dark mode theme", () => {
     })
 })
 
-
 // Ticket 9 AC-3: Register page light mode theme classes
 describe("Ticket 9 AC-3 Register page light mode theme", () => {
     test("register page outer background uses disney-light-blue", () => {
@@ -106,26 +105,36 @@ describe("Ticket 9 AC-4 Register page dark mode theme", () => {
 })
 
 // Ticket 9 AC-5: All Pins page light mode theme classes
+// wrapped in waitFor to prevent act() warnings from async state updates in PinsPage
 describe("Ticket 9 AC-5 All Pins page light mode theme", () => {
-    test("All Pins heading has light mode text class", () => {
+    test("All Pins heading has light mode text class", async () => {
         render(<PinsPage />)
-        expect(screen.getByText("All Pins")).toHaveClass("text-gray-900")
+        await waitFor(() => {
+            expect(screen.getByText("All Pins")).toHaveClass("text-gray-900")
+        })
     })
-    test("All Pins subtitle has light mode text class", () => {
+    test("All Pins subtitle has light mode text class", async () => {
         render(<PinsPage />)
-        expect(screen.getByText("Browse and discover our catalogue of pins!")).toHaveClass("text-gray-500")
+        await waitFor(() => {
+            expect(screen.getByText("Browse and discover our catalogue of pins!")).toHaveClass("text-gray-500")
+        })
     })
 })
 
 // Ticket 9 AC-6: All Pins page dark mode theme classes
+// wrapped in waitFor to prevent act() warnings from async state updates in PinsPage
 describe("Ticket 9 AC-6 All Pins page dark mode theme", () => {
-    test("All Pins heading has dark:text-gray-100 for dark mode", () => {
+    test("All Pins heading has dark:text-gray-100 for dark mode", async () => {
         render(<PinsPage />)
-        expect(screen.getByText("All Pins")).toHaveClass("dark:text-gray-100")
+        await waitFor(() => {
+            expect(screen.getByText("All Pins")).toHaveClass("dark:text-gray-100")
+        })
     })
-    test("All Pins subtitle has dark:text-gray-300 for dark mode", () => {
+    test("All Pins subtitle has dark:text-gray-300 for dark mode", async () => {
         render(<PinsPage />)
-        expect(screen.getByText("Browse and discover our catalogue of pins!")).toHaveClass("dark:text-gray-300")
+        await waitFor(() => {
+            expect(screen.getByText("Browse and discover our catalogue of pins!")).toHaveClass("dark:text-gray-300")
+        })
     })
     test("PinCard has dark:bg-neutral-800 for dark mode background", () => {
         const mockPin = {
@@ -178,7 +187,7 @@ describe("Ticket 9 AC-7 Sidebar active link dark mode theme", () => {
     })
 })
 
-// Ticket 9 AC 7 Snapshot Tests (Multiple PAges)
+// Ticket 9 AC-8 Snapshot Tests (multiple pages)
 describe("Ticket 9 Snapshot Tests", () => {
     test("LoginForm matches snapshot", () => {
         const { container } = render(<LoginForm />)
@@ -226,6 +235,8 @@ describe("Ticket 9 Snapshot Tests", () => {
         await waitFor(() => {
             expect(screen.getByText("Kermit the Frog")).toBeInTheDocument()
         })
-        expect(container).toMatchSnapshot()
+        await waitFor(() => {
+            expect(container).toMatchSnapshot()
+        })
     })
 })

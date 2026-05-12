@@ -25,7 +25,8 @@ export const authOptions = {
                 return {
                     id: user.id,
                     username: user.username,
-                    email: user.email
+                    email: user.email,
+                    role: user.role
                 }
             }
         })
@@ -42,12 +43,14 @@ export const authOptions = {
             if (user) {
                 token.username = user.username
                 token.email = user.email
+                token.role = user.role
             }
             return token
         },
         async session({ session, token }) {
             session.user.username = token.username
             session.user.email = token.email
+            session.user.role = token.role
             return session
         }
     }
