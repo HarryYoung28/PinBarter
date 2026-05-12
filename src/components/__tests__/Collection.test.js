@@ -2,12 +2,14 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import PinfoPage from '@/app/(auth)/pins/[id]/page'
 import Collection from '@/app/(auth)/collection/page'
+import { useSearchParams } from 'next/navigation'
 
 // Mock next/navigation
 const mockPush = jest.fn()
 jest.mock("next/navigation", () => ({
     useRouter: () => ({ push: mockPush }),
-    useParams: () => ({ id: 'pin-1' })
+    useParams: () => ({ id: 'pin-1' }),
+    useSearchParams: () => ({ get: () => null })
 }))
 
 // Mock next-auth
