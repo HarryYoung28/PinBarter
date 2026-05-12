@@ -1,205 +1,282 @@
 'use client'
-import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
-import PinGrid from "@/components/PinGrid"
-import SearchBar from "@/components/SearchBar"
-import SuggestPinModal from "@/components/SuggestPinModal"
-import toast from "react-hot-toast"
+import { useState } from "react"
 
-export default function PinsPage() {
-    // hooks
-    const [pins, setPins] = useState([])
-    const [search, setSearch] = useState("")
-    const [page, setPage] = useState(1)
-    const [total, setTotal] = useState(0)
-    const [loading, setLoading] = useState(true)
-    const router = useRouter()
+export default function SuggestPinModal({ onClose, onSuccess }) {
 
-    // controls whether the suggest a pin modal is open
-    const [showSuggestModal, setShowSuggestModal] = useState(false)
+    // form field state
+    const [name, setName] = useState("")
+    const [series, setSeries] = useState("")
+    const [description, setDescription] = useState("")
+    const [rarity, setRarity] = useState("Standard")
+    const [editionSize, setEditionSize] = useState("")
 
-    async function fetchPins() {
+    // feedback state
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState("")
+
+    async function handleSubmit() {
+        // reset error before trying again
+        setError("")
+
+        // name is required before sending to the API
+        if (!name.trim()) {
+            setError("Pin name is required.")
+            return
+        }
+
         setLoading(true)
-        // url pattern for searches in API
-        const response = await fetch(`/api/pins?search=${search}&page=${page}`)
-        // data will receive the response in json
+
+        const response = await fetch('/api/pins', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                name,
+                series: series || null,
+                description: description || null,
+                rarity,
+                // only send edition size if limited edition is selected
+                editionSize: rarity === "Limited Edition" && editionSize ? parseInt(editionSize) : null
+            })
+        })
+
         const data = await response.json()
-        setPins(data.pins)
-        setTotal(data.total)
         setLoading(false)
+
+        if (response.ok) {
+            // tell the parent the submission was successful
+            onSuccess()
+        } else {
+            setError(data.error || "Something went wrong, please try again.")
+        }
     }
 
-    useEffect(() => {
-        fetchPins()
-    }, [search, page])
-
-    const totalPages = Math.ceil(total / 12)
-
     return (
-        <div className="p-6">
-            {/* title */}
-            <h1 className="
-                text-2xl
-                font-bold
-                text-gray-900
-                dark:text-gray-100
-                mb-2">
-                All Pins
-            </h1>
-            <p className="
-                text-sm
-                text-gray-500
-                dark:text-gray-300
-                mb-6">
-                Browse and discover our catalogue of pins!
-            </p>
-
-            {/* search bar */}
-            <SearchBar
-                value={search}
-                onChange={(e) => {
-                    setSearch(e.target.value)
-                    setPage(1)
-                }}
-            />
-
-            {/* loading feedback for user */}
-            {loading && (
-                <p className="
-                    text-sm
-                    text-gray-500
-                    dark:text-gray-300
-                    text-center">
-                    Searching for pins...
-                </p>
-            )}
-
-            {/* no pins found */}
-            {!loading && pins.length === 0 && (
-                <p className="
-                    text-sm
-                    text-gray-500
-                    dark:text-gray-300
-                    text-center">
-                    Uh-oh, no pins found, sorry!
-                </p>
-            )}
-
-            {/* pin grid */}
-            {!loading && <PinGrid pins={pins} />}
-
-            {/* pagination buttons only show if there is more than one page */}
-            {!loading && totalPages > 1 && (
-                <div className="flex justify-center items-center gap-4 mt-8">
-                    <button
-                        onClick={() => setPage(page - 1)}
-                        disabled={page === 1}
-                        className="
-                            px-4
-                            py-2
-                            text-sm
-                            bg-disney-light-blue
-                            text-disney-dark-blue
-                            rounded-md
-                            hover:bg-disney-dark-blue
-                            hover:text-white
-                            disabled:opacity-50
-                            disabled:hover:bg-disney-light-blue
-                            disabled:hover:text-disney-dark-blue
-                            disabled:cursor-not-allowed
-                            dark:hover:bg-white
-                            dark:hover:text-disney-dark-blue">
-                        Previous Page
-                    </button>
-                    <span className="text-sm text-gray-600 dark:text-gray-300">
-                        Page {page} of {totalPages}
-                    </span>
-                    <button
-                        onClick={() => setPage(page + 1)}
-                        disabled={page === totalPages}
-                        className="
-                            px-4
-                            py-2
-                            text-sm
-                            bg-disney-light-blue
-                            text-disney-dark-blue
-                            rounded-md
-                            hover:bg-disney-dark-blue
-                            hover:text-white
-                            disabled:opacity-50
-                            disabled:hover:bg-disney-light-blue
-                            disabled:hover:text-disney-dark-blue
-                            disabled:cursor-not-allowed
-                            dark:hover:bg-white
-                            dark:hover:text-disney-dark-blue">
-                        Next Page
-                    </button>
-                </div>
-            )}
-
-            {/* suggest a pin banner at the bottom of the page */}
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
             <div className="
-                mt-12
-                border
-                border-gray-500
-                dark:border-gray-200
-                rounded-lg
-                p-6
                 bg-white
                 dark:bg-neutral-800
-                flex
-                flex-col
-                md:flex-row
-                items-center
-                justify-between
-                gap-4">
-                <div>
-                    <p className="
+                rounded-lg
+                p-6
+                w-full
+                max-w-md
+                mx-4
+                shadow-xl">
+                <h2 className="
+                    text-lg
+                    font-bold
+                    text-gray-900
+                    dark:text-gray-100
+                    mb-1">
+                    Suggest a Pin
+                </h2>
+                <p className="
+                    text-sm
+                    text-gray-500
+                    dark:text-gray-300
+                    mb-4">
+                    Submit a pin to be reviewed by our team. It will appear in the catalogue once approved.
+                </p>
+
+                {/* pin name - required */}
+                <label className="
+                    block
+                    text-sm
+                    font-medium
+                    text-gray-700
+                    dark:text-gray-300
+                    mb-1">
+                    Pin Name *
+                </label>
+                <input
+                    data-testid="pin-name"
+                    type="text"
+                    placeholder="e.g. Kermit the Frog"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="
+                        w-full
+                        border
+                        border-gray-300
+                        dark:border-gray-600
+                        rounded-md
+                        p-2
                         text-sm
-                        font-semibold
+                        bg-white
+                        dark:bg-neutral-700
                         text-gray-900
                         dark:text-gray-100
-                        mb-1">
-                        Have a pin that is not in our catalogue?
-                    </p>
-                    <p className="
-                        text-sm
-                        text-gray-500
-                        dark:text-gray-300">
-                        Help us grow the PinBarter collection by suggesting a new pin for review.
-                    </p>
-                </div>
-                <button
-                    data-testid="suggest-pin-button"
-                    type="button"
-                    onClick={() => setShowSuggestModal(true)}
-                    className="
-                        px-4
-                        py-2
-                        text-sm
-                        font-medium
-                        bg-disney-light-blue
-                        text-disney-dark-blue
-                        rounded
-                        hover:bg-disney-dark-blue
-                        hover:text-white
-                        dark:hover:bg-white
-                        dark:hover:text-disney-dark-blue
-                        whitespace-nowrap">
-                    Suggest a Pin
-                </button>
-            </div>
-
-            {/* suggest a pin modal, only renders when open */}
-            {showSuggestModal && (
-                <SuggestPinModal
-                    onClose={() => setShowSuggestModal(false)}
-                    onSuccess={() => {
-                        setShowSuggestModal(false)
-                        toast("Pin submitted! It will appear in the catalogue once approved.")
-                    }}
+                        mb-4"
                 />
-            )}
+
+                {/* series - optional */}
+                <label className="
+                    block
+                    text-sm
+                    font-medium
+                    text-gray-700
+                    dark:text-gray-300
+                    mb-1">
+                    Series
+                </label>
+                <input
+                    data-testid="pin-series"
+                    type="text"
+                    placeholder="e.g. Muppets Christmas Carol"
+                    value={series}
+                    onChange={(e) => setSeries(e.target.value)}
+                    className="
+                        w-full
+                        border
+                        border-gray-300
+                        dark:border-gray-600
+                        rounded-md
+                        p-2
+                        text-sm
+                        bg-white
+                        dark:bg-neutral-700
+                        text-gray-900
+                        dark:text-gray-100
+                        mb-4"
+                />
+
+                {/* description - optional */}
+                <label className="
+                    block
+                    text-sm
+                    font-medium
+                    text-gray-700
+                    dark:text-gray-300
+                    mb-1">
+                    Description
+                </label>
+                <textarea
+                    data-testid="pin-description"
+                    placeholder="Describe the pin..."
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    rows={2}
+                    className="
+                        w-full
+                        border
+                        border-gray-300
+                        dark:border-gray-600
+                        rounded-md
+                        p-2
+                        text-sm
+                        bg-white
+                        dark:bg-neutral-700
+                        text-gray-900
+                        dark:text-gray-100
+                        mb-4"
+                />
+
+                {/* rarity dropdown - required */}
+                <label className="
+                    block
+                    text-sm
+                    font-medium
+                    text-gray-700
+                    dark:text-gray-300
+                    mb-1">
+                    Rarity *
+                </label>
+                <select
+                    data-testid="pin-rarity"
+                    value={rarity}
+                    onChange={(e) => {
+                        setRarity(e.target.value)
+                        // reset edition size if user switches away from limited edition
+                        if (e.target.value !== "Limited Edition") setEditionSize("")
+                    }}
+                    className="
+                        w-full
+                        border
+                        border-gray-300
+                        dark:border-gray-600
+                        rounded-md
+                        p-2
+                        text-sm
+                        bg-white
+                        dark:bg-neutral-700
+                        text-gray-900
+                        dark:text-gray-100
+                        mb-4">
+                    <option value="Standard">Standard</option>
+                    <option value="Limited Run">Limited Run</option>
+                    <option value="Limited Edition">Limited Edition</option>
+                </select>
+
+                {/* edition size only shows when limited edition is selected */}
+                {rarity === "Limited Edition" && (
+                    <>
+                        <label className="
+                            block
+                            text-sm
+                            font-medium
+                            text-gray-700
+                            dark:text-gray-300
+                            mb-1">
+                            Edition Size
+                        </label>
+                        <input
+                            data-testid="pin-edition-size"
+                            type="number"
+                            placeholder="e.g. 2500"
+                            value={editionSize}
+                            onChange={(e) => setEditionSize(e.target.value)}
+                            className="
+                                w-full
+                                border
+                                border-gray-300
+                                dark:border-gray-600
+                                rounded-md
+                                p-2
+                                text-sm
+                                bg-white
+                                dark:bg-neutral-700
+                                text-gray-900
+                                dark:text-gray-100
+                                mb-4"
+                        />
+                    </>
+                )}
+
+                {/* error message */}
+                {error && (
+                    <p className="text-sm text-red-500 mb-3">{error}</p>
+                )}
+
+                {/* action buttons */}
+                <div className="flex gap-3 justify-end">
+                    <button
+                        data-testid="cancel-suggest"
+                        type="button"
+                        onClick={onClose}
+                        className="px-4 py-2 text-sm text-red-500 hover:underline">
+                        Cancel
+                    </button>
+                    <button
+                        data-testid="submit-suggest"
+                        type="button"
+                        onClick={handleSubmit}
+                        disabled={loading}
+                        className="
+                            px-4
+                            py-2
+                            text-sm
+                            bg-disney-light-blue
+                            text-disney-dark-blue
+                            rounded
+                            hover:bg-disney-dark-blue
+                            hover:text-white
+                            dark:hover:bg-white
+                            dark:hover:text-disney-dark-blue
+                            disabled:opacity-50
+                            disabled:cursor-not-allowed">
+                        {loading ? "Submitting..." : "Submit Pin"}
+                    </button>
+                </div>
+            </div>
         </div>
     )
 }
