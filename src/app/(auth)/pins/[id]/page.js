@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from "react"
-import { useParams, useRouter } from "next/navigation"
+import { useParams, useRouter, useSearchParams } from "next/navigation"
 import toast from "react-hot-toast"
 
 export default function PinfoPage({ params }) {
@@ -13,6 +13,8 @@ export default function PinfoPage({ params }) {
     const [collectionLoading, setCollectionLoading] = useState(true)
     const [inWishlist, setInWishlist] = useState(false)
     const [wishlistLoading, setWishlistLoading] = useState(true)
+    const searchParams = useSearchParams()
+    const from = searchParams.get('from')
 
     useEffect(() => {
         async function fetchPin() {
@@ -96,7 +98,8 @@ export default function PinfoPage({ params }) {
             <button
             onClick={() => router.back()}
             className="text-sm text-disney-dark-blue dark:text-disney-light-blue hover:underline mb-6 block">
-                Return to All Pins
+                {/* checks where the user came from for appropriate return */}
+                Return to{from === 'collection' ? 'My Pins' : 'All Pins'}
             </button>
             <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">Pin Info</h2>
             <div
