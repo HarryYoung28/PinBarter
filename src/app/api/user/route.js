@@ -7,7 +7,7 @@ export async function PATCH(request) {
     // get the current logged in user's session on the server side
     const session = await getServerSession(authOptions)
 
-    // if no session, user is not logged in - reject the request
+    // if no session, user is not logged in, reject the request
     if (!session) {
         return Response.json({ error: "Unauthorised" }, { status: 401 })
     }
@@ -32,7 +32,7 @@ export async function PATCH(request) {
         return Response.json({ error: "Current password is incorrect." }, { status: 400 })
     }
 
-    // hash the new password before saving - never store plain text passwords
+    // hash the new password before saving, never store plain text passwords
     const newHash = await bcrypt.hash(newPassword, 10)
 
     // update the user's password hash in the database
@@ -48,7 +48,7 @@ export async function DELETE() {
     // get the current logged in user's session on the server side
     const session = await getServerSession(authOptions)
 
-    // if no session, user is not logged in - reject the request
+    // if no session, user is not logged in, reject the request
     if (!session) {
         return Response.json({ error: "Unauthorised" }, { status: 401 })
     }
@@ -62,28 +62,38 @@ export async function DELETE() {
         return Response.json({ error: "User not found" }, { status: 404 })
     }
 
-    // delete trade items first - they reference trades
-    await prisma.tradeItem.deleteMany({ where: { trade: { offererId: user.id } } })
-    await prisma.tradeItem.deleteMany({ where: { trade: { receiverId: user.id } } })
+    // find all trades the user is involved in as offerer or receiver
+    const userTrades = await prisma.trade.findMany({
+        where: {
+            OR: [
+                { offererId: user.id },
+                { receiverId: user.id }
+            ]
+        },
+        select: { id: true }
+    })
 
-    // delete trades where user is offerer or receiver
-    await prisma.trade.deleteMany({ where: { offererId: user.id } })
-    await prisma.trade.deleteMany({ where: { receiverId: user.id } })
+    const tradeIds = userTrades.map(t => t.id)
 
-    // delete trade listings
+    // delete trade items belonging to those trades first
+    // tradeItems must go before trades due to foreign key constraints
+    await prisma.tradeItem.deleteMany({
+        where: { tradeId: { in: tradeIds } }
+    })
+
+    // now delete the trades themselves
+    await prisma.trade.deleteMany({
+        where: { id: { in: tradeIds } }
+    })
+
+    // delete trade listings, collection, and wishlist
     await prisma.tradeListing.deleteMany({ where: { userId: user.id } })
-
-    // delete collection and wishlist
     await prisma.collection.deleteMany({ where: { userId: user.id } })
     await prisma.wishlist.deleteMany({ where: { userId: user.id } })
 
-    // finally delete the user
+    // finally delete the user, this must come last as all related records
+    // must be removed first due to foreign key constraints in the database
     await prisma.user.delete({ where: { id: user.id } })
-
-    // finally delete the user themselves
-    await prisma.user.delete({
-        where: { id: user.id }
-    })
 
     return Response.json({ success: true })
 }
