@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Ticket 15 AC-3 Snapshot testing Home page matches snapshot 1`] = `
+<div>
+  <div
+    class="p-6 max-w-3xl"
+  >
+    <h1
+      class=" text-2xl  font-bold  text-gray-900  dark:text-gray-100  mb-2"
+    >
+      Welcome back, 
+      testuser
+      !
+    </h1>
+    <p
+      class=" text-sm  text-gray-500  dark:text-gray-300  mb-8"
+    >
+      Here's a summary of your PinBarter activity.
+    </p>
+    <div
+      class="grid grid-cols-2 md:grid-cols-3 gap-4"
+    >
+      <div
+        class=" bg-white  dark:bg-neutral-800  border  border-gray-500  dark:border-gray-200  rounded-lg  p-5"
+      >
+        <p
+          class=" text-xs  text-gray-500  dark:text-gray-400  uppercase  tracking-wide  mb-1"
+        >
+          Pins in Collection
+        </p>
+        <p
+          class=" text-3xl  font-bold  text-disney-dark-blue  dark:text-disney-light-blue"
+        >
+          5
+        </p>
+      </div>
+      <div
+        class=" bg-white  dark:bg-neutral-800  border  border-gray-500  dark:border-gray-200  rounded-lg  p-5"
+      >
+        <p
+          class=" text-xs  text-gray-500  dark:text-gray-400  uppercase  tracking-wide  mb-1"
+        >
+          Pins in Wishlist
+        </p>
+        <p
+          class=" text-3xl  font-bold  text-disney-dark-blue  dark:text-disney-light-blue"
+        >
+          1
+        </p>
+      </div>
+      <div
+        class=" bg-white  dark:bg-neutral-800  border  border-gray-500  dark:border-gray-200  rounded-lg  p-5"
+      >
+        <p
+          class=" text-xs  text-gray-500  dark:text-gray-400  uppercase  tracking-wide  mb-1"
+        >
+          Completed Trades
+        </p>
+        <p
+          class=" text-3xl  font-bold  text-disney-dark-blue  dark:text-disney-light-blue"
+        >
+          0
+        </p>
+      </div>
+      <div
+        class=" bg-white  dark:bg-neutral-800  border  border-gray-500  dark:border-gray-200  rounded-lg  p-5"
+      >
+        <p
+          class=" text-xs  text-gray-500  dark:text-gray-400  uppercase  tracking-wide  mb-1"
+        >
+          Pending Offers
+        </p>
+        <p
+          class=" text-3xl  font-bold  text-disney-dark-blue  dark:text-disney-light-blue"
+        >
+          1
+        </p>
+      </div>
+      <div
+        class=" bg-white  dark:bg-neutral-800  border  border-gray-500  dark:border-gray-200  rounded-lg  p-5"
+      >
+        <p
+          class=" text-xs  text-gray-500  dark:text-gray-400  uppercase  tracking-wide  mb-1"
+        >
+          Active Listings
+        </p>
+        <p
+          class=" text-3xl  font-bold  text-disney-dark-blue  dark:text-disney-light-blue"
+        >
+          1
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
