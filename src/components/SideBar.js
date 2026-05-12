@@ -127,6 +127,13 @@ export default function SideBar() {
                     className={pathname === "/wishlist" ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
                         My Wishlist
                     </Link>
+                    {/* admin link only visible to admin users */}
+                    {session?.user?.role === "admin" && (
+                        <Link data-testid="admin" href="/admin" onClick={closeSideBar}
+                        className={pathname === "/admin" ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
+                            Admin Panel
+                        </Link>
+                    )}
                 </div>
                 {/* div for BOTTOM of sidebar signout and user info */}
                 <div className="items-center border-gray-200 flex flex-col pb-6">

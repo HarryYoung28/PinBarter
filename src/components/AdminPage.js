@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
+import EditPinModal from "@/components/EditPinModal"
 
 export default function AdminPage() {
 
@@ -12,6 +13,9 @@ export default function AdminPage() {
     // state for pending pins fetched from the API
     const [pendingPins, setPendingPins] = useState([])
     const [loading, setLoading] = useState(true)
+
+    // tracks which pin is being edited, null means no modal open
+    const [editingPin, setEditingPin] = useState(null)
 
     useEffect(() => {
         // wait until session has loaded before checking role
@@ -35,15 +39,35 @@ export default function AdminPage() {
     }
 
     async function handleApprove(id) {
-        // send PATCH request to approve the pin by its id
+        // send PATCH request with approve flag to approve the pin
         const response = await fetch(`/api/pins/${id}`, {
-            method: 'PATCH'
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ approve: true })
         })
 
         if (response.ok) {
             // remove the approved pin from the pending list without refetching
             setPendingPins(pendingPins.filter(pin => pin.id !== id))
         }
+    }
+
+    async function handleDelete(id) {
+        // send DELETE request to remove the pin from the database
+        const response = await fetch(`/api/pins/${id}`, {
+            method: 'DELETE'
+        })
+
+        if (response.ok) {
+            // remove the deleted pin from the pending list without refetching
+            setPendingPins(pendingPins.filter(pin => pin.id !== id))
+        }
+    }
+
+    function handleEditSuccess(updatedPin) {
+        // update the pin in the pending list with the new data from the edit modal
+        setPendingPins(pendingPins.map(pin => pin.id === updatedPin.id ? updatedPin : pin))
+        setEditingPin(null)
     }
 
     // show nothing while session is loading to avoid flash of content
@@ -145,29 +169,72 @@ export default function AdminPage() {
                                 </div>
                             </div>
 
-                            {/* approve button */}
-                            <button
-                                data-testid={`approve-${pin.id}`}
-                                type="button"
-                                onClick={() => handleApprove(pin.id)}
-                                className="
-                                    px-4
-                                    py-2
-                                    text-sm
-                                    font-medium
-                                    bg-disney-light-blue
-                                    text-disney-dark-blue
-                                    rounded
-                                    hover:bg-disney-dark-blue
-                                    hover:text-white
-                                    dark:hover:bg-white
-                                    dark:hover:text-disney-dark-blue
-                                    whitespace-nowrap">
-                                Approve
-                            </button>
+                            {/* action buttons */}
+                            <div className="flex gap-2">
+                                <button
+                                    type="button"
+                                    onClick={() => setEditingPin(pin)}
+                                    className="
+                                        px-4
+                                        py-2
+                                        text-sm
+                                        font-medium
+                                        bg-disney-light-blue
+                                        text-disney-dark-blue
+                                        rounded
+                                        hover:bg-disney-dark-blue
+                                        hover:text-white
+                                        dark:hover:bg-white
+                                        dark:hover:text-disney-dark-blue
+                                        whitespace-nowrap">
+                                    Edit
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => handleApprove(pin.id)}
+                                    className="
+                                        px-4
+                                        py-2
+                                        text-sm
+                                        font-medium
+                                        bg-disney-light-blue
+                                        text-disney-dark-blue
+                                        rounded
+                                        hover:bg-disney-dark-blue
+                                        hover:text-white
+                                        dark:hover:bg-white
+                                        dark:hover:text-disney-dark-blue
+                                        whitespace-nowrap">
+                                    Approve
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => handleDelete(pin.id)}
+                                    className="
+                                        px-4
+                                        py-2
+                                        text-sm
+                                        font-medium
+                                        bg-red-500
+                                        hover:bg-red-600
+                                        text-white
+                                        rounded
+                                        whitespace-nowrap">
+                                    Delete
+                                </button>
+                            </div>
                         </div>
                     ))}
                 </div>
+            )}
+
+            {/* edit pin modal, only renders when a pin is being edited */}
+            {editingPin && (
+                <EditPinModal
+                    pin={editingPin}
+                    onClose={() => setEditingPin(null)}
+                    onSuccess={handleEditSuccess}
+                />
             )}
         </div>
     )
