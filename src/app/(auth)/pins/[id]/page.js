@@ -99,7 +99,7 @@ export default function PinfoPage({ params }) {
             onClick={() => router.back()}
             className="text-sm text-disney-dark-blue dark:text-disney-light-blue hover:underline mb-6 block">
                 {/* checks where the user came from for appropriate return */}
-                Return to{from === 'collection' ? 'My Pins' : 'All Pins'}
+                Return to {from === 'collection' ? 'My Pins' : 'All Pins'}
             </button>
             <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-4">Pin Info</h2>
             <div
