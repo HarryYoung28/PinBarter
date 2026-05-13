@@ -2,7 +2,7 @@
 import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import SessionWrapper from "@/components/SessionWrapper"
-import Link from "next/link"
+import HelpButton from "@/components/HelpButton"
 
 // load Geist fonts with CSS variable names for use in Tailwind
 const geistSans = Geist({
@@ -37,33 +37,9 @@ export default function RootLayout({ children }) {
             <body className="min-h-full flex flex-col">
                 <SessionWrapper>
                     {children}
+                    {/* help link floating button on every page mobile and desktop */}
+                    <HelpButton />
                 </SessionWrapper>
-                {/* help link floating button on every page mobile and desktop */}
-                  <Link
-                  href="/help"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="
-                      fixed
-                      bottom-6
-                      right-6
-                      md:left-6
-                      md:right-auto
-                      w-10
-                      h-10
-                      rounded-full
-                      bg-disney-dark-blue
-                      text-white
-                      flex
-                      items-center
-                      justify-center
-                      text-sm
-                      font-bold
-                      ring-1
-                      hover:ring-3
-                      z-50">
-                        ?
-                  </Link>
             </body>
         </html>
     )
