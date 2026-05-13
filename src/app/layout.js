@@ -38,6 +38,7 @@ export default function RootLayout({ children }) {
                 <SessionWrapper>
                     {children}
                 </SessionWrapper>
+                {/* help link floating button on every page mobile and desktop */}
                   <Link
                   href="/help"
                   target="_blank"
@@ -58,7 +59,8 @@ export default function RootLayout({ children }) {
                       justify-center
                       text-sm
                       font-bold
-                      hover:ring-2
+                      ring-1
+                      hover:ring-3
                       z-50">
                         ?
                   </Link>
