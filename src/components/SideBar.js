@@ -73,6 +73,7 @@ export default function SideBar() {
             className={`
                 fixed
                 top-14
+                right-0
                 bottom-0
                 md:relative
                 md:top-0
@@ -84,7 +85,7 @@ export default function SideBar() {
                 flex
                 flex-col
                 overflow-y-auto
-                ${isOpen ? "translate-x-0" : "-translate-x-full"}
+                ${isOpen ? "translate-x-0" : "translate-x-full"}
                 md:translate-x-0
             `}>
                 {/* div for TOP of sidebar for LOGO */}
