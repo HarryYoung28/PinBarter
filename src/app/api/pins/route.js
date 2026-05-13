@@ -79,7 +79,7 @@ export async function POST(request) {
     })
 
     if (existing) {
-        return NextResponse.json({ error: "A pin with this name already exists." }, { status: 400 })
+        return NextResponse.json({ error: "A pin with this name and series combination already exists." }, { status: 400 })
     }
 
     // create the pin with isApproved false so it goes to admin review
