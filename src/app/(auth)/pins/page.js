@@ -1,23 +1,30 @@
 'use client'
 import { useState, useEffect } from "react"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import PinGrid from "@/components/PinGrid"
 import SearchBar from "@/components/SearchBar"
 import SuggestPinModal from "@/components/SuggestPinModal"
 import toast from "react-hot-toast"
+import { useSearchParams } from "next/navigation"
 
 export default function PinsPage() {
     // hooks
+    const router = useRouter()
+    const pathname = usePathname()
+    const searchParams = useSearchParams()
+
+    // read page from URL on load, defaulting to 1
+    const [page, setPage] = useState(parseInt(searchParams.get("page") || "1"))
     const [pins, setPins] = useState([])
     const [search, setSearch] = useState("")
-    const [page, setPage] = useState(1)
     const [total, setTotal] = useState(0)
     const [loading, setLoading] = useState(true)
-    const router = useRouter()
+
 
     // controls whether the suggest a pin modal is open
     const [showSuggestModal, setShowSuggestModal] = useState(false)
 
+    // function to fetch all pins
     async function fetchPins() {
         setLoading(true)
         // url pattern for searches in API
@@ -27,6 +34,12 @@ export default function PinsPage() {
         setPins(data.pins)
         setTotal(data.total)
         setLoading(false)
+    }
+
+    // updates page state and reflects it in the URL so returning preserves position
+    function handlePageChange(newPage) {
+        setPage(newPage)
+        router.push(`${pathname}?page=${newPage}`, { scroll: false })
     }
 
     useEffect(() => {
@@ -59,7 +72,7 @@ export default function PinsPage() {
                 value={search}
                 onChange={(e) => {
                     setSearch(e.target.value)
-                    setPage(1)
+                    handlePageChange(1)
                 }}
             />
 
@@ -92,7 +105,7 @@ export default function PinsPage() {
             {!loading && totalPages > 1 && (
                 <div className="flex justify-center items-center gap-4 mt-8">
                     <button
-                        onClick={() => setPage(page - 1)}
+                        onClick={() => handlePageChange(page - 1)}
                         disabled={page === 1}
                         className="
                             px-4
@@ -115,7 +128,7 @@ export default function PinsPage() {
                         Page {page} of {totalPages}
                     </span>
                     <button
-                        onClick={() => setPage(page + 1)}
+                        onClick={() => handlePageChange(page + 1)}
                         disabled={page === totalPages}
                         className="
                             px-4
