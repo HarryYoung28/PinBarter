@@ -162,7 +162,10 @@ export default function TradingPostPage() {
                                     text-xs 
                                     text-gray-600 
                                     dark:text-gray-300 mt-1">
-                                        <span className="font-medium">Minimum offer:</span> {listing.creditFlexibility > 0 ? `${listing.pin.credits - listing.creditFlexibility} credits` : `${listing.pin.credits} credits`}
+                                        Minimum offer:
+                                            <span> {listing.creditFlexibility > 0 
+                                            ? `${listing.pin.credits - listing.creditFlexibility} ${listing.pin.credits - listing.creditFlexibility === 1 ? "credit" : "credits"}` 
+                                            : `${listing.pin.credits} ${listing.pin.credits === 1 ? "credit" : "credits"}`}</span>
                                     </p>
                                 </div>
 
