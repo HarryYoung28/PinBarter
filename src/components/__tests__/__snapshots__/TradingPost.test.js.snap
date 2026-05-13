@@ -64,24 +64,24 @@ exports[`Ticket 11 AC-10 Trading Post snapshot Trading Post page matches snapsho
             class="flex flex-col gap-1"
           >
             <p
-              class="text-sm font-bold text-gray-900 dark:text-gray-100"
+              class=" text-sm  font-bold  text-gray-900  dark:text-gray-100"
             >
               Kermit the Frog
             </p>
             <p
-              class="text-xs text-gray-500 dark:text-gray-300"
+              class=" text-xs  text-gray-500  dark:text-gray-300"
             >
               Muppets Christmas Carol
             </p>
             <p
-              class="text-xs text-disney-dark-blue dark:text-disney-light-blue font-medium"
+              class=" text-xs  text-disney-dark-blue  dark:text-disney-light-blue  font-medium"
             >
               3
                
               credits
             </p>
             <p
-              class="text-xs text-gray-500 dark:text-gray-300"
+              class=" text-xs  text-gray-500  dark:text-gray-300"
             >
               Posted by 
               <span
@@ -93,10 +93,10 @@ exports[`Ticket 11 AC-10 Trading Post snapshot Trading Post page matches snapsho
           </div>
         </div>
         <div
-          class="border-t border-gray-200 dark:border-gray-600 pt-2"
+          class=" border-t  border-gray-200  dark:border-gray-600 pt-2"
         >
           <p
-            class="text-xs text-gray-600 dark:text-gray-300"
+            class=" text-xs  text-gray-600  dark:text-gray-300"
           >
             <span
               class="font-medium"
@@ -107,7 +107,7 @@ exports[`Ticket 11 AC-10 Trading Post snapshot Trading Post page matches snapsho
             Any Goofy pins
           </p>
           <p
-            class="text-xs text-gray-600 dark:text-gray-300 mt-1"
+            class=" text-xs  text-gray-600  dark:text-gray-300 mt-1"
           >
             <span
               class="font-medium"

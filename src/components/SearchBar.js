@@ -1,3 +1,4 @@
+// returns a searchbar component
 export default function SearchBar({ value, onChange }){
     return(
         <input

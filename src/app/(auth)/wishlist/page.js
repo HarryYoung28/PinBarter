@@ -1,15 +1,23 @@
 'use client'
+
+// imports
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import PinGrid from "@/components/PinGrid"
 
 export default function WishlistPage() {
+
+    // state
+    // wishlist data, loading state and pagination
     const [wishlist, setWishlist] = useState([])
     const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
     const [total, setTotal] = useState(0)
+
+    // hooks
     const router = useRouter()
 
+    // fetch wishlist from API whenever the page number changes
     useEffect(() => {
         async function fetchWishlist() {
             setLoading(true)
@@ -22,14 +30,21 @@ export default function WishlistPage() {
         fetchWishlist()
     }, [page])
 
+    // extract just the pin objects from the wishlist entries
     const pins = wishlist.map(entry => entry.pin)
+
+    // calculate total pages based on 12 pins per page
     const totalPages = Math.ceil(total / 12)
 
-    // print wishlist
+    // functions
+    // opens a print window with a formatted wishlist table
     async function handleExport() {
+        // fetch all wishlist pins without pagination for the export
         const response = await fetch('/api/wishlist?export=true')
         const data = await response.json()
         const pins = data.wishlist.map(entry => entry.pin)
+
+        // open a new window and write a formatted HTML table for printing
         const printWindow = window.open('', '_blank')
         printWindow.document.write(`
             <html>
@@ -61,8 +76,8 @@ export default function WishlistPage() {
                             ${pins.map(pin => `
                                 <tr>
                                     <td>${pin.name}</td>
-                                    <td>${pin.series || '-'}</td>
-                                    <td>${pin.rarity || '-'}</td>
+                                    <td>${pin.series || 'N/A'}</td>
+                                    <td>${pin.rarity || 'N/A'}</td>
                                     <td>${pin.credits}</td>
                                 </tr>
                             `).join('')}
@@ -75,15 +90,18 @@ export default function WishlistPage() {
         printWindow.print()
     }
 
+    // return
     return (
         <div className="p-6">
             <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">My Wishlist</h1>
             <p className="text-sm text-gray-500 dark:text-gray-300 mb-6">Pins you're looking for.</p>
 
+            {/* loading feedback for the user */}
             {loading && (
                 <p className="text-sm text-gray-500 dark:text-gray-300 text-center">Loading your wishlist...</p>
             )}
 
+            {/* empty state when the user has no pins on their wishlist */}
             {!loading && pins.length === 0 && (
                 <div className="text-center mt-12">
                     <p className="text-sm text-gray-500 dark:text-gray-300 mb-4">No wishes to grant!</p>
@@ -105,8 +123,10 @@ export default function WishlistPage() {
                 </div>
             )}
 
+            {/* render pin grid and pagination when the user has wishlist pins */}
             {!loading && pins.length > 0 && (
                 <>
+                    {/* export button to print the wishlist as a formatted table */}
                     <div className="mb-4 flex justify-end">
                         <button
                             data-testid="export-wishlist-button"
@@ -128,6 +148,7 @@ export default function WishlistPage() {
 
                     <PinGrid pins={pins} />
 
+                    {/* pagination buttons only show if there is more than one page */}
                     {totalPages > 1 && (
                         <div className="flex justify-center items-center gap-4 mt-8">
                             <button

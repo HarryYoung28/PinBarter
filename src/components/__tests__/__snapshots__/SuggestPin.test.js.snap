@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Ticket 17 AC-9 Snapshot testing SuggestPinModal matches snapshot 1`] = `
+<div>
+  <div
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+  >
+    <div
+      class=" bg-white dark:bg-neutral-800 rounded-lg p-6 w-full max-w-md mx-4 shadow-xl"
+    >
+      <h2
+        class=" text-lg font-bold text-gray-900 dark:text-gray-100 mb-1"
+      >
+        Suggest a Pin
+      </h2>
+      <p
+        class=" text-sm text-gray-500 dark:text-gray-300 mb-4"
+      >
+        Submit a pin to be reviewed by our team. It will appear in the catalogue once approved.
+      </p>
+      <label
+        class=" block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+      >
+        Pin Name *
+      </label>
+      <input
+        class=" w-full border border-gray-300 dark:border-gray-600 rounded-md p-2 text-sm bg-white dark:bg-neutral-700 text-gray-900 dark:text-gray-100 mb-4"
+        data-testid="pin-name"
+        placeholder="e.g. Kermit the Frog"
+        type="text"
+        value=""
+      />
+      <label
+        class=" block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+      >
+        Series
+      </label>
+      <input
+        class=" w-full border border-gray-300 dark:border-gray-600 rounded-md p-2 text-sm bg-white dark:bg-neutral-700 text-gray-900 dark:text-gray-100 mb-4"
+        data-testid="pin-series"
+        placeholder="e.g. Muppets Christmas Carol"
+        type="text"
+        value=""
+      />
+      <label
+        class=" block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+      >
+        Description
+      </label>
+      <textarea
+        class=" w-full border border-gray-300 dark:border-gray-600 rounded-md p-2 text-sm bg-white dark:bg-neutral-700 text-gray-900 dark:text-gray-100 mb-4"
+        data-testid="pin-description"
+        placeholder="Describe the pin..."
+        rows="2"
+      />
+      <label
+        class=" block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+      >
+        Rarity
+      </label>
+      <select
+        class=" w-full border border-gray-300 dark:border-gray-600 rounded-md p-2 text-sm bg-white dark:bg-neutral-700 text-gray-900 dark:text-gray-100 mb-4"
+        data-testid="pin-rarity"
+      >
+        <option
+          value="Standard"
+        >
+          Standard
+        </option>
+        <option
+          value="Limited Run"
+        >
+          Limited Run
+        </option>
+        <option
+          value="Limited Edition"
+        >
+          Limited Edition
+        </option>
+      </select>
+      <div
+        class="flex gap-3 justify-end"
+      >
+        <button
+          class="px-4 py-2 text-sm text-red-500 hover:underline"
+          data-testid="cancel-suggest"
+          type="button"
+        >
+          Cancel
+        </button>
+        <button
+          class=" px-4 py-2 text-sm bg-disney-light-blue text-disney-dark-blue rounded hover:bg-disney-dark-blue hover:text-white dark:hover:bg-white dark:hover:text-disney-dark-blue disabled:opacity-50 disabled:cursor-not-allowed"
+          data-testid="submit-suggest"
+          type="button"
+        >
+          Submit Pin
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

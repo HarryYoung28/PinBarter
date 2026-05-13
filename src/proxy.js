@@ -1,6 +1,6 @@
 export { default as proxy } from "next-auth/middleware"
 
-// if not authed as signed in in these routes, redirect to sign in (/login)
+// if not authenticated, redirect to /login for all protected routes
 export const config = {
     matcher: [
         "/home/:path*",
@@ -9,5 +9,8 @@ export const config = {
         "/trades/:path*",
         "/wishlist/:path*",
         "/pins/:path*",
+        "/trading-post/:path*",
+        "/admin/:path*",
+        "/help/:path*",
     ]
 }

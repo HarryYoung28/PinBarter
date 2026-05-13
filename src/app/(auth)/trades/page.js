@@ -1,19 +1,29 @@
 'use client'
+// imports
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import toast from "react-hot-toast"
 import { useSession } from "next-auth/react"
 
 export default function MyTradesPage() {
+
+    // state
+    // all trade data split into four cateogries
     const [myListings, setMyListings] = useState([])
     const [myOffers, setMyOffers] = useState([])
     const [pendingTrades, setPendingTrades] = useState([])
     const [completedTrades, setCompletedTrades] = useState([])
     const [loading, setLoading] = useState(true)
+
+    // tracks which trade is waiting to complete
     const [confirmingTradeId, setConfirmingTradeId] = useState(null)
+
+    // hooks
     const router = useRouter()
     const { data: session } = useSession()
 
+    // functions
+    // fetch all trade data from API
     async function fetchTrades() {
         setLoading(true)
         const response = await fetch('/api/trades')
@@ -29,12 +39,14 @@ export default function MyTradesPage() {
         fetchTrades()
     }, [])
 
+    // deletes a listing by id and refrehses trade data
     async function handleDeleteListing(listingId) {
         await fetch(`/api/trade-listings/${listingId}`, { method: 'DELETE' })
         await fetchTrades()
         toast("Listing removed!")
     }
 
+    // handles trade actions, accept, decline, withdraw, complete 
     async function handleTradeAction(tradeId, action) {
         const response = await fetch(`/api/trades/${tradeId}`, {
             method: 'POST',
@@ -54,14 +66,17 @@ export default function MyTradesPage() {
         setConfirmingTradeId(null)
     }
 
+    // check if user has trade acitivity to show
     const hasActivity = myListings.length > 0 || myOffers.length > 0 || pendingTrades.length > 0 || completedTrades.length > 0
 
+    // loading state whilst waiting for data
     if (loading) return <div className="
     p-6 
     text-sm 
     text-gray-500 
     dark:text-gray-300">Loading your trades...</div>
 
+    // return tag
     return (
         <div className="p-6 max-w-4xl">
             <h1 className="
@@ -76,6 +91,7 @@ export default function MyTradesPage() {
             dark:text-gray-300 
             mb-6">Manage your listings, offers and trades.</p>
 
+            {/* empty state when no activity */}
             {!hasActivity && (
                 <div className="text-center mt-12">
                     <p className="
@@ -244,7 +260,7 @@ export default function MyTradesPage() {
                 </section>
             )}
 
-            {/* My Offers */}
+            {/* My Offers, shows offers the user has on other listings */}
             {myOffers.length > 0 && (
                 <section className="mb-8">
                     <h2 className="
