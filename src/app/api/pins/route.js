@@ -72,7 +72,10 @@ export async function POST(request) {
 
     // check if a pin with this name already exists to prevent duplicates
     const existing = await prisma.pin.findFirst({
-        where: { name: { equals: name, mode: "insensitive" } }
+        where: { 
+            name: { equals: name, mode: "insensitive" },
+            series: series || null
+        }
     })
 
     if (existing) {
