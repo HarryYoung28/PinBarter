@@ -127,7 +127,7 @@ export default function WishlistPage() {
             {!loading && pins.length > 0 && (
                 <>
                     {/* export button to print the wishlist as a formatted table */}
-                    <div className="mb-4 flex justify-end">
+                    <div className="mb-4 flex justify-start">
                         <button
                             data-testid="export-wishlist-button"
                             onClick={handleExport}
