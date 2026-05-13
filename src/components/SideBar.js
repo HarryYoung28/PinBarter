@@ -128,6 +128,10 @@ export default function SideBar() {
                     className={pathname === "/wishlist" ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
                         My Wishlist
                     </Link>
+                    <Link data-testid="wishlist" href="/help" onClick={closeSideBar}
+                    className={pathname === "/help" ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
+                        Help
+                    </Link>
                     {/* admin link only visible to admin users */}
                     {session?.user?.role === "admin" && (
                         <Link data-testid="admin" href="/admin" onClick={closeSideBar}
@@ -141,21 +145,6 @@ export default function SideBar() {
                     <div className="flex flex-col items-center gap-3 mb-4">
                         {/*  username of signed in user */}
                         <span className="text-sm text-gray-700">{session?.user?.username}</span>
-                        {/* help link */}
-                        <Link href={'/help'} data-testid="help-link" onClick={closeSideBar} className="
-                        w-8 
-                        h-8 
-                        rounded-full 
-                        bg-disney-dark-blue 
-                        text-white 
-                        flex 
-                        items-center 
-                        justify-center 
-                        text-sm 
-                        font-bold
-                        hover:ring-2">
-                            ?
-                        </Link>
                     </div>
                     {/* Sign Out -- using signOut from NextAuth destroys the JWT, redirects to Login */}
                     <div>
