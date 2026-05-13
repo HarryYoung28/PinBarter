@@ -146,7 +146,7 @@ export default function WishlistPage() {
                         </button>
                     </div>
 
-                    <PinGrid pins={pins} />
+                    <PinGrid pins={pins} from="wishlist"/>
 
                     {/* pagination buttons only show if there is more than one page */}
                     {totalPages > 1 && (

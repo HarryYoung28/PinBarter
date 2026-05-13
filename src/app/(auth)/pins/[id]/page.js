@@ -141,7 +141,7 @@ export default function PinfoPage({ params }) {
                     hover:underline
                     mb-6
                     block">
-                Return to {from === 'collection' ? 'My Pins' : 'All Pins'}
+                Return to {from === 'collection' ? 'My Pins' : from === 'wishlist' ? 'My Wishlist' : 'All Pins'}
             </button>
 
             <h2 className="

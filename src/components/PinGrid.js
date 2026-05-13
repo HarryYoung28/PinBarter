@@ -1,7 +1,7 @@
 // imports
 import PinCard from "./PinCard"
 
-export default function PinGrid({ pins, showTradeButton, onTradeClick }) {
+export default function PinGrid({ pins, showTradeButton, onTradeClick, from }) {
 
     // return
     // renders a responsive grid of PinCard components
@@ -13,6 +13,7 @@ export default function PinGrid({ pins, showTradeButton, onTradeClick }) {
                     pin={pin}
                     showTradeButton={showTradeButton}
                     onTradeClick={onTradeClick}
+                    from={from}
                 />
             ))}
         </div>

@@ -105,6 +105,7 @@ export default function Collection() {
                         pins={pins}
                         showTradeButton={true}
                         onTradeClick={(pin) => setSelectedPin(pin)}
+                        from="collection"
                     />
 
                     {/* pagination buttons only show if there is more than one page */}

@@ -3,7 +3,7 @@
 // imports
 import { useRouter } from "next/navigation"
 
-export default function PinCard({ pin, showTradeButton, onTradeClick }) {
+export default function PinCard({ pin, showTradeButton, onTradeClick, from }) {
 
     // hooks
     const router = useRouter()
@@ -13,7 +13,7 @@ export default function PinCard({ pin, showTradeButton, onTradeClick }) {
         <div
             data-testid="pin-card"
             // if showTradeButton is true the card came from My Pins so pass from=collection
-            onClick={() => router.push(`/pins/${pin.id}${showTradeButton ? '?from=collection' : ''}`)}
+            onClick={() => router.push(`/pins/${pin.id}${from ? `?from=${from}` : ''}`)}
             className="
                 bg-white
                 dark:bg-neutral-800
