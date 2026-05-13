@@ -213,7 +213,7 @@ export default function PinfoPage({ params }) {
 
                         {/* add and remove collection button, only shows once collection check is done */}
                         {/* long lines but ternary operator difficult to split up code in */}
-                        {!collectionLoading && (
+                        {!collectionLoading && !wishlistLoading && (
                             <button
                                 onClick={handleCollection}
                                 className={`mt-4 px-4 py-2 rounded text-sm font-medium ${
@@ -226,7 +226,7 @@ export default function PinfoPage({ params }) {
                         )}
 
                         {/* add and remove wishlist button, disabled if pin is already in collection */}
-                        {!wishlistLoading && (
+                        {!wishlistLoading && !collectionLoading && (
                             <button
                                 data-testid="wishlist-button"
                                 onClick={handleWishlist}

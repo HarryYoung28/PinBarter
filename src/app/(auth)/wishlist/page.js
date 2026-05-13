@@ -46,6 +46,14 @@ export default function WishlistPage() {
 
         // open a new window and write a formatted HTML table for printing
         const printWindow = window.open('', '_blank')
+
+        // if the browser blocked the popup, alert the user
+        if (!printWindow) {
+            alert("Please allow popups for this site to export your wishlist.")
+            return
+        }
+
+        
         printWindow.document.write(`
             <html>
                 <head>
@@ -62,7 +70,7 @@ export default function WishlistPage() {
                 </head>
                 <body>
                     <h1>PinBarter — My Wishlist</h1>
-                    <p class="subtitle">Printed on ${new Date().toLocaleDateString()}</p>
+                    <p class="subtitle">Printed on ${new Date().toLocaleDateString('en-GB')}</p>
                     <table>
                         <thead>
                             <tr>
