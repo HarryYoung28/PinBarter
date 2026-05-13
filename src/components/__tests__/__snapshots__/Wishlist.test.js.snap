@@ -16,7 +16,7 @@ exports[`Ticket 10 AC-8 Wishlist page snapshot wishlist page matches snapshot 1`
       Pins you're looking for.
     </p>
     <div
-      class="mb-4 flex justify-end"
+      class="mb-4 flex justify-start"
     >
       <button
         class=" px-4  py-2  text-sm  bg-disney-light-blue  text-disney-dark-blue  rounded-md  hover:bg-disney-dark-blue  hover:text-white  dark:hover:bg-white  dark:hover:text-disney-dark-blue"

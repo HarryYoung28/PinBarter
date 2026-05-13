@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import LoginForm from '../LoginForm'
 import RegisterForm from '../RegisterForm'
-import PinsPage from '@/app/(auth)/pins/page'
+import PinsPage from '@/components/PinsPage'
 import PinCard from '../PinCard'
 import SideBar from '../SideBar'
 
@@ -11,7 +11,8 @@ const mockPush = jest.fn()
 jest.mock("next/navigation", () => ({
     useRouter: () => ({ push: mockPush }),
     usePathname: () => "/pins",
-    useParams: () => ({})
+    useParams: () => ({}),
+    useSearchParams: () => ({ get: () => null })
 }))
 
 // mock next auth
