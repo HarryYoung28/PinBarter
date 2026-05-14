@@ -76,7 +76,7 @@ describe("Ticket 2 (updated Ticket 7.1)  AC-5 Burger menu closes when Burger but
         fireEvent.click(screen.getByTestId("burger-menu-button"))
         // This has been added in Ticket 7.1 to address the fact the X button was removed
         fireEvent.click(screen.getByTestId("burger-menu-button"))
-        expect(screen.queryByTestId("sidebar-div")).toHaveClass("-translate-x-full")
+        expect(screen.queryByTestId("sidebar-div")).toHaveClass("translate-x-full")
     })
 })
 
@@ -85,7 +85,7 @@ describe("Ticket 2 AC-6 Mobile Sidebar navigation link is selected", () => {
     test("sidebar closes when X button is clicked", () => {
         fireEvent.click(screen.getByTestId("burger-menu-button"))
         fireEvent.click(screen.getByTestId("profile"))
-        expect(screen.queryByTestId("sidebar-div")).toHaveClass("-translate-x-full")
+        expect(screen.queryByTestId("sidebar-div")).toHaveClass("translate-x-full")
     })
 })
 

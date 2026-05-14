@@ -109,13 +109,11 @@ exports[`Ticket 11 AC-10 Trading Post snapshot Trading Post page matches snapsho
           <p
             class=" text-xs  text-gray-600  dark:text-gray-300 mt-1"
           >
-            <span
-              class="font-medium"
-            >
-              Minimum offer:
+            Minimum offer:
+            <span>
+               
+              2 credits
             </span>
-             
-            2 credits
           </p>
         </div>
         <button

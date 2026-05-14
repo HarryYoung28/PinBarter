@@ -128,7 +128,7 @@ export default function SideBar() {
                     className={pathname === "/wishlist" ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
                         My Wishlist
                     </Link>
-                    <Link data-testid="wishlist" href="/help" onClick={closeSideBar}
+                    <Link data-testid="help-link" href="/help" onClick={closeSideBar}
                     className={pathname === "/help" ? userCurrentLinkClassNameVariable : linkTagClassNameVariable}>
                         Help
                     </Link>
