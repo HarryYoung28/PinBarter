@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import TradeListing from "@/components/TradeListing"
 import PinGrid from "@/components/PinGrid"
 import toast from "react-hot-toast"
+import SearchBar from "@/components/SearchBar"
 
 export default function Collection() {
 
@@ -16,6 +17,8 @@ export default function Collection() {
     const [page, setPage] = useState(1)
     const [total, setTotal] = useState(0)
     const [selectedPin, setSelectedPin] = useState(null)
+    // added for search functionality
+    const [search, setSearch] = useState("")
 
     // hooks
     const router = useRouter()
@@ -24,14 +27,14 @@ export default function Collection() {
     useEffect(() => {
         async function fetchCollection() {
             setLoading(true)
-            const response = await fetch(`/api/collection?page=${page}`)
+            const response = await fetch(`/api/collection?page=${page}&search=${search}`)
             const data = await response.json()
             setCollection(data.collection)
             setTotal(data.total)
             setLoading(false)
         }
         fetchCollection()
-    }, [page])
+    }, [page, search])
 
     // extract just the pin objects from the collection entries
     const pins = collection.map(entry => entry.pin)
@@ -57,6 +60,14 @@ export default function Collection() {
                 mb-6">
                 Your personal pin collection.
             </p>
+
+            <SearchBar
+                value={search}
+                onChange={(e) => {
+                    setSearch(e.target.value)
+                    setPage(1)
+                }}
+            />
 
             {/* loading feedback for the user */}
             {loading && (

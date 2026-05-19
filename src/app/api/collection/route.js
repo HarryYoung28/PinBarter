@@ -21,17 +21,35 @@ export async function GET(request) {
     // pull page number from query string, defaulting to page 1
     const { searchParams } = new URL(request.url)
     const page = parseInt(searchParams.get("page") || "1")
+    const search = searchParams.get("search") || ""
     const pageSize = 12
+    
 
     // count total collection entries for pagination calculation
     const total = await prisma.collection.count({
-        where: { userId: user.id }
+        where: {
+            userId: user.id,
+            pin: {
+                name: {
+                    contains: search,
+                    mode: "insensitive"
+                }
+            }
+        }
     })
 
     // fetch the collection entries for the current page
     // include the full pin data so the frontend can display it
     const collection = await prisma.collection.findMany({
-        where: { userId: user.id },
+        where: {
+            userId: user.id,
+            pin: {
+                name: {
+                    contains: search,
+                    mode: "insensitive"
+                }
+            }
+        },
         include: { pin: true },
         skip: (page - 1) * pageSize,
         take: pageSize
