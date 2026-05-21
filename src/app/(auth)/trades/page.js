@@ -246,7 +246,7 @@ export default function MyTradesPage() {
                                             text-xs 
                                             bg-red-500 
                                             dark:bg-red-600
-                                            text-white 
+                                            text-black
                                             rounded 
                                             hover:bg-red-600
                                             dark:hover:bg-red-500">

@@ -217,7 +217,7 @@ export default function AdminPage() {
                                         font-medium
                                         bg-red-500
                                         hover:bg-red-600
-                                        text-white
+                                        text-black
                                         rounded
                                         whitespace-nowrap">
                                     Delete

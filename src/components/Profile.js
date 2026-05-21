@@ -307,7 +307,7 @@ export default function Profile() {
                             font-medium 
                             bg-red-500 
                             hover:bg-red-600 
-                            text-white 
+                            text-black
                             rounded">
                         Delete Account
                     </button>
