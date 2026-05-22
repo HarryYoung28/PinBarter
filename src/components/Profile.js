@@ -332,7 +332,7 @@ export default function Profile() {
                                     font-medium 
                                     bg-red-500 
                                     hover:bg-red-600 
-                                    text-white 
+                                    text-black 
                                     rounded 
                                     disabled:opacity-50">
                                 {deleteLoading ? "Deleting..." : "Yes, delete my account"}
