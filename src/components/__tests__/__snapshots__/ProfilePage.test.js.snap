@@ -107,7 +107,7 @@ exports[`Ticket 14 AC-8 Snapshot testing Profile page matches snapshot 1`] = `
         Deleting your account is permanent and cannot be undone.
       </p>
       <button
-        class=" px-4  py-2  text-sm  font-medium  bg-red-500  hover:bg-red-600  text-white  rounded"
+        class=" px-4  py-2  text-sm  font-medium  bg-red-500  hover:bg-red-600  text-black rounded"
         data-testid="delete-account-button"
         type="button"
       >

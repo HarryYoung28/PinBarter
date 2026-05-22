@@ -22,7 +22,7 @@ beforeEach(() => {
 // All the LoginForm Rendering tests (UI) AC1
 describe("AC-1 LoginForm rendering", () => {
     test("Renders the username field", () => {
-        // The getByLabelText finds the label associated with the text, and 
+        // The getByLabelText finds the label associated with the text
         expect(screen.getByLabelText('Username')).toBeInTheDocument()
     })
 
@@ -61,7 +61,7 @@ describe("AC-5 LoginForm snapshot testing", () => {
 //     })
 //   })
 
-// Login form redirect tests (successful login without db connection up and running)
+// // Login form redirect tests (successful login without db connection up and running)
 // describe("AC-4 LoginForm redirect", () => {
 //     test("redirects to /home when correct credentials are submitted", () => {
 //         fireEvent.change(screen.getByLabelText("Username"), { target: { value: "admin" } })
